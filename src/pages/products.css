@@ -1,0 +1,223 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+/* FILTER BUTTON */
+.filter-btn {
+  display: none;
+  margin: 10px;
+  padding: 8px 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+}
+.product-titles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 0px;
+}
+/* PAGE */
+.page {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+}
+.page h3 {
+  font-size: 22px;
+  margin-bottom:20px;
+
+}
+.page label input{
+  margin-right: 10px;
+}
+.page label{
+  margin-bottom: 20px;
+}
+
+/* SIDEBAR */
+.sidebar-cat {
+  width: 280px;
+  min-width: 280px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  flex-shrink: 0;
+}
+
+.sidebar-cat label {
+  display: block;
+  margin-bottom: 8px;
+ 
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  display: none;
+  margin-bottom: 10px;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+/* CARD */
+.card {
+  width: 100%;
+  /* height: 300px; */
+  background-color: #e2e2e2;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  transition: 0.3s;
+  border: 1px solid rgb(85, 85, 85);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+.product-card-img {
+  width: 100%;
+  height: 140px;
+  border: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  
+}
+/* IMAGE */
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+/* TAG */
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #eee;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+/* PRICE */
+.price {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.mrp {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* BUTTON */
+.filled {
+  margin-top: 10px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filled:hover {
+  transform: scale(1.05);
+}
+
+/* PAGINATION */
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 5px;
+  padding: 6px 10px;
+}
+
+.pagination .active {
+  background: black;
+  color: white;
+}
+
+/* SKELETON */
+.skeleton .img {
+  height: 140px;
+  background: #ddd;
+  border-radius: 10px;
+}
+
+.skeleton .text {
+  height: 12px;
+  background: #ddd;
+  margin: 10px 0;
+}
+
+.skeleton .small {
+  width: 50%;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .filter-btn {
+    display: block;
+  }
+
+  .sidebar-cat {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    z-index: 999;
+    transition: 0.3s;
+  }
+
+  .sidebar-cat.open {
+    left: 0;
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .page {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

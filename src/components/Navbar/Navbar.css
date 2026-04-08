@@ -1,0 +1,145 @@
+/* NAVBAR */
+.navbar {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-radius: 20px;
+  margin-bottom: 25px;
+}
+
+/* LOGO */
+.logo {
+  width: 140px;
+}
+
+/* MENU */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+/* Hover underline animation */
+.nav-menu li a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #28a745;
+  transition: 0.4s ease;
+}
+
+.nav-menu li a:hover::after {
+  width: 100%;
+}
+
+.nav-menu li a:hover {
+  color: #28a745;
+}
+
+/* RIGHT */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+  padding: 8px 18px;
+  border: none;
+  background: #28a745;
+  color: #fff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -260px;
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  transition: 0.4s ease;
+  z-index: 2000;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin-top: 40px;
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  color: #28a745;
+  padding-left: 8px;
+}
+
+/* CLOSE BTN */
+.close-btn {
+  text-align: right;
+  font-size: 22px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .login-btn {
+    display: none;
+  }
+}
