@@ -60,11 +60,11 @@ const ProductDetail = () => {
           <div className="detail-right">
             <h2>{product.name}</h2>
 
-            <p className="price"> 
+            {/* <p className="price"> 
                 
               {discount && <span className="old">₹{product.price.mrp}</span>}₹
               {product.price.offer}
-            </p>
+            </p> */}
 
             <p className="desc">{product.description}</p>
 
@@ -96,10 +96,10 @@ const ProductDetail = () => {
                   <img src={item.image} alt={item.name} />
                 </div>
                 <h4>{item.name}</h4>
-                <p className="price">
+                {/* <p className="price">
                   ₹{item.price.offer}
                   <span className="mrp"> ₹{item.price.mrp}</span>
-                </p>
+                </p> */}
                 <button onClick={() => navigate(`/product/${item.slug}`)}>
                   View Product
                 </button>

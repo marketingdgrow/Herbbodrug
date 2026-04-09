@@ -9,7 +9,7 @@
   "subCategory": "Artho",
   "forms": ["Tablet"],
   "productType": "Chronic Disease",
-  "price": { "mrp": 499, "offer": 399 },
+   "price": { "mrp": 499, "offer": 399 },
   "description": "Helps reduce joint pain, stiffness and inflammation.",
   "composition": "Boswellia serrata, Tinospora cordifolia, Vitex negundo, Sodium chloride, Ferula foetida, Cissus quadrangularis, Alstonia scholaris, Symplocos racemosa, Solanum surattense, Fumaria parviflora, Zanthoxylum armatum, Clerodendrum serratum, Tinospora cordifolia, Cassia fistula, Terminalia chebula, Emblica officinalis, Curcuma longa, Zingiber officinale, Withania somnifera, Commiphora mukul.",
   "indications": "Relieves joint pain, lower back pain, swollen joints, inflamed joints, sprain, strain, over stretched muscles, reduces pain and stiffness, relieves neck strain, old age arthritis, rheumatoid arthritis.",
@@ -580,6 +580,7 @@
 {
   "id": "PRD035",
   "name": "Artho Capsules",
+
   "slug": "artho-capsules",
   "image": "/imgs/HeroDrug 35-01.jpg",
   "category": "Pain & Orthopedic Care",

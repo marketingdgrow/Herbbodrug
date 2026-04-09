@@ -2,6 +2,50 @@ import { useEffect, useState } from "react";
 import "./products.css";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
+
+const normalizeFilterValue = (value) => {
+  if (!value) return "";
+
+  const normalized = value.toString().trim().toLowerCase();
+  return normalized.endsWith("s") ? normalized.slice(0, -1) : normalized;
+};
+
+const CATEGORY_OPTIONS = [
+  "Pain & Orthopedic Care",
+  "Neurological Care",
+  "Cardiac & Blood Circulation",
+  "Diabetes Care",
+  "Kidney & Urinary Care",
+  "Liver Care",
+  "Respiratory Care",
+  "Digestive & Gastro Care",
+  "Skin Care",
+  "Hair Care",
+];
+
+const FORM_OPTIONS = ["Tablet", "Capsules", "Syrup", "Liquid"];
+
+const TYPE_OPTIONS = ["Chronic Disease", "General Wellness", "Acute Relief"];
+
+const CATEGORY_ALIAS_MAP = {
+  "Cardiac & Blood Circulation": ["Cardiac Care", "Blood Care"],
+  "Diabetes Care": ["Diabetic Care"],
+  "Kidney & Urinary Care": ["Renal Care"],
+  "Digestive & Gastro Care": ["Digestive Care"],
+};
+
+const TYPE_ALIAS_MAP = {
+  "Chronic Disease": { productTypes: ["Chronic Disease"] },
+  "General Wellness": {
+    productTypes: ["General Wellness"],
+    categories: ["General Wellness"],
+  },
+  "Acute Relief": {
+    productTypes: ["Acute Relief"],
+    categories: ["First Aid Care"],
+  },
+};
+
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
@@ -28,17 +72,37 @@ const Products = () => {
 
   // FILTER
   const filtered = products.filter((p) => {
-    const catMatch =
-      filters.category.length === 0 || filters.category.includes(p.category);
+    const selectedCategories = filters.category
+      .flatMap((cat) => CATEGORY_ALIAS_MAP[cat] || [cat])
+      .map(normalizeFilterValue);
+    const selectedForms = filters.form.map(normalizeFilterValue);
+    const selectedTypeProductTypes = filters.type
+      .flatMap((type) => TYPE_ALIAS_MAP[type]?.productTypes || [type])
+      .map(normalizeFilterValue);
+    const selectedTypeCategories = filters.type
+      .flatMap((type) => TYPE_ALIAS_MAP[type]?.categories || [])
+      .map(normalizeFilterValue);
+
+    const productForms = Array.isArray(p.forms) ? p.forms : [p.forms];
+
+    const normalizedCategory = normalizeFilterValue(p.category);
+    const normalizedType = normalizeFilterValue(p.productType);
+    const normalizedForms = productForms.map(normalizeFilterValue);
+
+    const categoryMatch =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(normalizedCategory);
 
     const formMatch =
-      filters.form.length === 0 ||
-      (p.forms && p.forms.some((f) => filters.form.includes(f)));
+      selectedForms.length === 0 ||
+      normalizedForms.some((f) => selectedForms.includes(f));
 
     const typeMatch =
-      filters.type.length === 0 || filters.type.includes(p.productType);
+      filters.type.length === 0 ||
+      selectedTypeProductTypes.includes(normalizedType) ||
+      selectedTypeCategories.includes(normalizedCategory);
 
-    return catMatch && formMatch && typeMatch;
+    return categoryMatch && formMatch && typeMatch;
   });
 
   // PAGINATION
@@ -81,21 +145,11 @@ const Products = () => {
           </button>
 
           <h3>Category</h3>
-          {[
-            "Pain & Orthopedic Care",
-            "Neurological Care",
-            "Cardiac & Blood Circulation",
-            "Diabetes Care",
-            "Kidney & Urinary Care",
-            "Liver Care",
-            "Respiratory Care",
-            "Digestive & Gastro Care",
-            "Skin Care",
-            "Hair Care",
-          ].map((cat) => (
+          {CATEGORY_OPTIONS.map((cat) => (
             <label key={cat}>
               <input
                 type="checkbox"
+                checked={filters.category.includes(cat)}
                 onChange={() => toggleFilter("category", cat)}
               />
               {cat}
@@ -103,17 +157,25 @@ const Products = () => {
           ))}
 
           <h3>Form</h3>
-          {["Tablet", "Capsule", "Syrup", "Liquid"].map((f) => (
+          {FORM_OPTIONS.map((f) => (
             <label key={f}>
-              <input type="checkbox" onChange={() => toggleFilter("form", f)} />
+              <input
+                type="checkbox"
+                checked={filters.form.includes(f)}
+                onChange={() => toggleFilter("form", f)}
+              />
               {f}
             </label>
           ))}
 
           <h3>Type</h3>
-          {["Chronic Disease", "General Wellness", "Acute Relief"].map((t) => (
+          {TYPE_OPTIONS.map((t) => (
             <label key={t}>
-              <input type="checkbox" onChange={() => toggleFilter("type", t)} />
+              <input
+                type="checkbox"
+                checked={filters.type.includes(t)}
+                onChange={() => toggleFilter("type", t)}
+              />
               {t}
             </label>
           ))}
@@ -140,10 +202,10 @@ const Products = () => {
 
                     <h4>{p.name}</h4>
 
-                    <p className="price">
+                    {/* <p className="price">
                       ₹{p.price.offer}
                       <span className="mrp"> ₹{p.price.mrp}</span>
-                    </p>
+                    </p> */}
 
                     <button
                       className="filled"

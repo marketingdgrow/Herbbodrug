@@ -47,10 +47,11 @@ const HomeProduct = () => {
                 <h4>{item.name}</h4>
 
                 {/* ✅ Price */}
-                <p className="price">
+
+                {/* <p className="price">
                   {discount && <span className="old">₹{item.price.mrp}</span>}₹
                   {item.price.offer}
-                </p>
+                </p>  */}
 
                 {/* ✅ Button */}
                 <Link to={`/product/${item.slug}`}>
