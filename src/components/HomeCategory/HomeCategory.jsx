@@ -118,67 +118,67 @@ const HomeCategory = () => {
             ref={sliderRef}
           >
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/joint pain.jpg" alt="" />
+              <img src="/imgs/home-page/joint pain.jpg" alt="" />
               <h4>Pain & Arthritis</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Neuro Surge.jpg" alt="" />
+              <img src="/imgs/home-page/Neuro Surge.jpg" alt="" />
               <h4>Neurological</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Chest Infections.jpg" alt="" />
+              <img src="/imgs/home-page/Chest Infections.jpg" alt="" />
               <h4>Cardiac & Blood</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Diabetes.jpg" alt="" />
+              <img src="/imgs/home-page/Diabetes.jpg" alt="" />
               <h4>Diabetes</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Kidney.jpg" alt="" />
+              <img src="/imgs/home-page/Kidney.jpg" alt="" />
               <h4>Kidney Care</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Liver.jpg" alt="" />
+              <img src="/imgs/home-page/Liver.jpg" alt="" />
               <h4>Liver Care</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/heart attack.jpg" alt="" />
+              <img src="/imgs/home-page/heart attack.jpg" alt="" />
               <h4>Respiratory</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/digestive system.jpg" alt="" />
+              <img src="/imgs/home-page/digestive system.jpg" alt="" />
               <h4>Digestive</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/family.jpg" alt="" />
+              <img src="/imgs/home-page/family.jpg" alt="" />
               <h4>Lifestyle</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Pigmentation.jpg" alt="" />
+              <img src="/imgs/home-page/Pigmentation.jpg" alt="" />
               <h4>Skin Care</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/PCOD.jpg" alt="" />
+              <img src="/imgs/home-page/PCOD.jpg" alt="" />
               <h4>Women’s Health</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Hair.jpg" alt="" />
+              <img src="/imgs/home-page/Hair.jpg" alt="" />
               <h4>Hair Care</h4>
             </div>
 
             <div className="homecategory-item">
-              <img src="/src/assets/home-page/Piles.jpg" alt="" />
+              <img src="/imgs/home-page/Piles.jpg" alt="" />
               <h4>Piles Care</h4>
             </div>
           </div>

@@ -19,7 +19,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nav-left">
-          <img src="/src/assets/Logo Jpg-01.jpg" alt="logo" className="logo" />
+          <img src="/imgs/Logo Jpg-01.jpg" alt="logo" className="logo" />
         </div>
 
         <ul className="nav-menu">

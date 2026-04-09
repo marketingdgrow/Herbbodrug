@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import "./AboutSection.css";
-import img1 from "../../assets/hero.png";
+
 
 const SectionOne = () => {
   return (
     <Fragment>
       <div className="about-section1">
         <div className="about-section-left">
-          <img src={img1} alt="" />
+         <img src="/imgs/hero.png" alt="Hero" />
         </div>
         <div className="about-section-right">
           <h2>

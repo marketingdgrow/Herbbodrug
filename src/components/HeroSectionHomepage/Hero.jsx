@@ -1,6 +1,6 @@
 import React from "react";
 import "./Hero.css";
-import img1 from "../../assets/hero.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 
@@ -47,7 +47,7 @@ const Hero = () => {
         </div>
 
         {/* ---- CENTER IMAGE ---- */}
-        <img className="hero-img" src={img1} alt="Herbbodrug Hero" />
+        <img src="/imgs/hero.png" alt="Hero" className="hero-img" />
 
         {/* ---- RIGHT ---- */}
         <div className="hero-right">
@@ -61,7 +61,7 @@ const Hero = () => {
 
           <div className="rigth-hero-bottom">
             <div className="right-img">
-              <img src="/src/assets/home-page/img-hero.jpg" alt="Herbal Products" />
+              <img src="/imgs/home-page/img-hero.jpg" alt="Herbal Products" />
             </div>
             <p>
               Our Product Department focuses on developing high-quality Ayurvedic
