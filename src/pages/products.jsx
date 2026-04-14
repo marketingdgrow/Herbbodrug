@@ -98,7 +98,8 @@ const Products = () => {
       normalizedForms.some((f) => selectedForms.includes(f));
 
     const typeMatch =
-      filters.type.length === 0 ||
+      filters.type.length === 
+      0 ||
       selectedTypeProductTypes.includes(normalizedType) ||
       selectedTypeCategories.includes(normalizedCategory);
 
