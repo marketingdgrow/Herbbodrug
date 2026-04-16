@@ -118,14 +118,6 @@ const SectionThree = () => {
             ))}
           </div>
         </div>
-
-        {/* CTA */}
-        <div className="section3-cta animate-on-scroll">
-          <button className="section3-cta-btn">
-            Find What Fits Your Needs
-            <FontAwesomeIcon icon={faArrowRight} className="cta-arrow" />
-          </button>
-        </div>
       </div>
     </Fragment>
   );

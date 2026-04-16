@@ -87,12 +87,11 @@ const SectionSix = () => {
       </div>
 
       {/* CTA */}
-      <div className="section6-cta-bar s6-animate">
-        <span>Explore customized herbal solutions tailored to your needs</span>
-        <button className="section6-btn">
-          View Your Herbal Solutions →
-        </button>
-      </div>
+     
+
+
+
+      
     </div>
   );
 };

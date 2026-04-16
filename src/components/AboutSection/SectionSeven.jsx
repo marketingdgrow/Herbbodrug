@@ -35,13 +35,17 @@ const SectionSeven = () => {
         </p>
 
         <div className="section7-actions">
-          <button className="section7-primary">
-            Get Started
-          </button>
+         {/* <a href="/Hero">
+    <button className="section7-primary">
+      Get Started
+    </button>
+  </a> */}
 
-          <button className="section7-secondary">
-            Contact Us
-          </button>
+  <a href="/contact">
+    <button className="section7-secondary">
+      Contact Us
+    </button>
+  </a>
         </div>
       </div>
     </div>
