@@ -6,9 +6,9 @@ import {
   faBoxOpen, faTruck, faArrowRight, faChevronLeft, faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const heroImg  = "/imgs/6.111.png";
-const slide2Img = "/imgs/5.111.png";
-const slide3Img = "/imgs/4.111.png";
+const heroImg  = "/imgs/11.111.png";
+const slide2Img = "/imgs/22.111.png";
+const slide3Img = "/imgs/33.111.png";
 
 const slides = [
   {
