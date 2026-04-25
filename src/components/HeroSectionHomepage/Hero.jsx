@@ -6,7 +6,7 @@ import {
   faBoxOpen, faTruck, faArrowRight, faChevronLeft, faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const heroImg  = "/imgs/11.111.png";
+const heroImg   = "/imgs/11.111.png";
 const slide2Img = "/imgs/22.111.png";
 const slide3Img = "/imgs/33.111.png";
 
@@ -50,8 +50,8 @@ const slides = [
       "Introducing the official online store. Discover 500+ Ayurvedic medicines and exclusive products — with flat 10% off on your first order.",
     btnLabel: "Shop Now",
     pills: [
-      { icon: faBoxOpen, label: "500+ Ayurvedic Products"  },
-      { icon: faTruck,   label: "Free Delivery above ₹499" },
+      { icon: faBoxOpen, label: "500+ Ayurvedic Products" },
+      { icon: faTruck,   label: "70+ Treatments"          },
     ],
     imgSrc: slide3Img,
     imgAlt: "Shop Ayurvedic Medicines Online",
@@ -64,7 +64,7 @@ const ANIM_MS  = 700;
 const Hero = () => {
   const [current,   setCurrent]   = useState(0);
   const [prev,      setPrev]      = useState(null);
-  const [direction, setDirection] = useState("next"); // "next" | "prev"
+  const [direction, setDirection] = useState("next");
   const [animating, setAnimating] = useState(false);
   const timerRef    = useRef(null);
   const touchStartX = useRef(0);
@@ -119,7 +119,6 @@ const Hero = () => {
     if (Math.abs(dx) > 40) dx > 0 ? handleNext() : handlePrev();
   };
 
-  /* slide state helper */
   const stateOf = (i) => {
     if (i === current)  return animating ? `enter-${direction}` : "active";
     if (i === prev)     return animating ? `exit-${direction}`  : "hidden";
@@ -127,9 +126,12 @@ const Hero = () => {
   };
 
   return (
-    <section className="hs-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} aria-label="Hero Slider">
-
-      {/* ── SLIDES (all rendered, CSS controls visibility) ── */}
+    <section
+      className="hs-wrap"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      aria-label="Hero Slider"
+    >
       {slides.map((slide, i) => {
         const state = stateOf(i);
         return (
@@ -138,7 +140,12 @@ const Hero = () => {
             className={`hs-slide hs-slide--${state}`}
             aria-hidden={i !== current}
           >
-            {/* LEFT */}
+            {/* ── LEFT — IMAGE ── */}
+            <div className="hs-right">
+              <img src={slide.imgSrc} alt={slide.imgAlt} />
+            </div>
+
+            {/* ── RIGHT — CONTENT ── */}
             <div className="hs-left">
               <div className="hs-badge">
                 <span className="hs-badge-dot" />
@@ -155,7 +162,11 @@ const Hero = () => {
 
               <div className="hs-pills">
                 {slide.pills.map((p, pi) => (
-                  <div className="hs-pill" key={pi} style={{ "--pill-delay": `${pi * 0.08}s` }}>
+                  <div
+                    className="hs-pill"
+                    key={pi}
+                    style={{ "--pill-delay": `${pi * 0.08}s` }}
+                  >
                     <div className="hs-pill-icon">
                       <FontAwesomeIcon icon={p.icon} size="xs" />
                     </div>
@@ -170,11 +181,6 @@ const Hero = () => {
                   <FontAwesomeIcon icon={faArrowRight} size="xs" />
                 </span>
               </button>
-            </div>
-
-            {/* RIGHT IMAGE */}
-            <div className="hs-right">
-              <img src={slide.imgSrc} alt={slide.imgAlt} />
             </div>
           </div>
         );
@@ -201,8 +207,6 @@ const Hero = () => {
           />
         ))}
       </div>
-
-     
     </section>
   );
 };

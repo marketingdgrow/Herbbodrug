@@ -11,14 +11,12 @@
   --hs-bg:      #e8f4d9;
   --hs-shadow:  rgba(23, 51, 1, 0.15);
   --hs-anim:    700ms;
-  --hs-ease:    cubic-bezier(0.65, 0, 0.35, 1); /* smooth sine-like */
+  --hs-ease:    cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* =============================================
    KEYFRAMES
    ============================================= */
-
-/* Slide track transitions */
 @keyframes enterFromRight {
   from { opacity: 0; transform: translateX(80px);  }
   to   { opacity: 1; transform: translateX(0);     }
@@ -35,8 +33,6 @@
   from { opacity: 1; transform: translateX(0);     }
   to   { opacity: 0; transform: translateX(80px);  }
 }
-
-/* Content stagger animations */
 @keyframes contentUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0);    }
@@ -49,27 +45,15 @@
   from { opacity: 0; transform: translateY(50px) scale(0.94); }
   to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
-
-/* Underline grow */
 @keyframes underlineGrow {
   from { width: 0;    }
   to   { width: 100%; }
 }
-
-/* Badge dot pulse */
 @keyframes pulseDot {
   0%   { box-shadow: 0 0 0 0   rgba(58, 125, 20, 0.55); }
   65%  { box-shadow: 0 0 0 8px rgba(58, 125, 20, 0);    }
   100% { box-shadow: 0 0 0 0   rgba(58, 125, 20, 0);    }
 }
-
-/* Progress bar */
-@keyframes progressFill {
-  from { width: 0%;    }
-  to   { width: 100%;  }
-}
-
-/* Blob */
 @keyframes blobSpin {
   0%   { transform: rotate(0deg)   scale(1);    }
   50%  { transform: rotate(180deg) scale(1.07); }
@@ -88,8 +72,6 @@
   font-family: "DM Sans", sans-serif;
   background-color: var(--hs-bg);
 }
-
-/* decorative blobs */
 .hs-wrap::before,
 .hs-wrap::after {
   content: "";
@@ -101,27 +83,13 @@
 .hs-wrap::before {
   width: 560px; height: 560px;
   background: radial-gradient(ellipse, rgba(255,255,255,0.22) 0%, transparent 70%);
-  top: -200px; right: -170px;
+  top: -200px; left: -170px;           /* blob now on LEFT side */
   animation: blobSpin 22s linear infinite;
 }
 .hs-wrap::after {
   width: 380px; height: 380px;
   background: radial-gradient(ellipse, rgba(23,51,1,0.07) 0%, transparent 70%);
-  bottom: -130px; left: -90px;
-}
-
-/* =============================================
-   PROGRESS BAR
-   ============================================= */
-.hs-progress {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 3px;
-  width: 0;
-  background: linear-gradient(90deg, var(--hs-green), var(--hs-accent));
-  border-radius: 0 2px 2px 0;
-  animation: progressFill 5000ms linear forwards;
-  z-index: 20;
+  bottom: -130px; right: -90px;        /* second blob on RIGHT */
 }
 
 /* =============================================
@@ -130,57 +98,49 @@
 .hs-slide {
   position: absolute;
   inset: 0;
-  padding: 56px 60px 110px 64px;
+  box-sizing: border-box;
+  padding: 36px 52px 60px 44px;
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 32px;
+  gap: 24px;
   z-index: 2;
-  /* hidden by default */
   opacity: 0;
   pointer-events: none;
 }
 
-/* ── ACTIVE (currently visible) ── */
+/* ── ACTIVE ── */
 .hs-slide--active {
   opacity: 1;
   pointer-events: all;
   transform: translateX(0);
-  /* content stagger handled by children */
 }
 
-/* ── ENTER FROM RIGHT (next direction) ── */
+/* ── ENTER / EXIT ── */
 .hs-slide--enter-next {
   pointer-events: none;
   animation: enterFromRight var(--hs-anim) var(--hs-ease) both;
 }
-
-/* ── ENTER FROM LEFT (prev direction) ── */
 .hs-slide--enter-prev {
   pointer-events: none;
   animation: enterFromLeft var(--hs-anim) var(--hs-ease) both;
 }
-
-/* ── EXIT TO LEFT (next direction) ── */
 .hs-slide--exit-next {
   pointer-events: none;
   animation: exitToLeft var(--hs-anim) var(--hs-ease) both;
 }
-
-/* ── EXIT TO RIGHT (prev direction) ── */
 .hs-slide--exit-prev {
   pointer-events: none;
   animation: exitToRight var(--hs-anim) var(--hs-ease) both;
 }
-
-/* ── COMPLETELY HIDDEN ── */
 .hs-slide--hidden {
   opacity: 0;
   pointer-events: none;
   transform: translateX(0);
 }
 
-/* ── Stagger content inside active slide ── */
+/* ── Content stagger on active / entering slides ── */
 .hs-slide--active .hs-badge,
 .hs-slide--enter-next .hs-badge,
 .hs-slide--enter-prev .hs-badge {
@@ -206,8 +166,6 @@
 .hs-slide--enter-prev .hs-right {
   animation: imgRise 0.85s var(--hs-ease) 0.08s both;
 }
-
-/* Underline re-grows on active slide */
 .hs-slide--active .underline-wrap::after,
 .hs-slide--enter-next .underline-wrap::after,
 .hs-slide--enter-prev .underline-wrap::after {
@@ -215,15 +173,39 @@
 }
 
 /* =============================================
-   LEFT COLUMN
+   LEFT COLUMN — IMAGE  (was .hs-right)
+   ============================================= */
+.hs-right {
+  flex: 0 0 44%;
+  max-width: 44%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.hs-right img {
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 28px 44px rgba(23, 51, 1, 0.18));
+  transition: filter 0.4s ease;
+}
+
+/* =============================================
+   RIGHT COLUMN — CONTENT  (was .hs-left)
    ============================================= */
 .hs-left {
-  width: 48%;
+  flex: 0 0 52%;
+  max-width: 52%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  justify-content: center;
+  gap: 16px;
   z-index: 3;
-  opacity: 1; /* parent slide controls visibility */
 }
 
 /* Badge */
@@ -249,28 +231,27 @@
   animation: pulseDot 2.4s ease-in-out infinite;
 }
 
-/* Text block */
 .hs-text-block {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
 }
 .hs-h1 {
   font-family: "Poppins", sans-serif;
-  font-size: clamp(14px, 1.8vw, 20px);
+  font-size: clamp(13px, 1.5vw, 18px);
   font-weight: 600;
   color: var(--hs-mid);
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   line-height: 1.3;
 }
 .hs-heading {
   font-family: "Poppins", sans-serif;
-  font-size: clamp(34px, 5vw, 64px);
+  font-size: clamp(28px, 4vw, 56px);
   font-weight: 800;
   color: var(--hs-dark);
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  margin: 0 0 18px;
+  line-height: 1.08;
+  letter-spacing: -1.2px;
+  margin: 0 0 14px;
   display: block;
 }
 .underline-wrap {
@@ -282,7 +263,7 @@
   position: absolute;
   bottom: -6px; left: 0;
   height: 3.5px;
-  width: 0;          /* grown by animation */
+  width: 0;
   background: linear-gradient(90deg, var(--hs-green), var(--hs-accent));
   border-radius: 2px;
 }
@@ -291,7 +272,7 @@
   line-height: 1.78;
   color: var(--hs-mid);
   font-weight: 400;
-  max-width: 440px;
+  max-width: 100%;
   margin: 0;
 }
 
@@ -299,7 +280,7 @@
 .hs-pills {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .hs-pill {
   display: inline-flex;
@@ -367,36 +348,12 @@
 }
 
 /* =============================================
-   RIGHT — IMAGE
-   ============================================= */
-.hs-right {
-  width: 50%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  align-self: stretch;
-  padding-bottom: 20px;
-  z-index: 3;
-}
-.hs-right img {
-  width: 100%;
-  max-width: 640px;
-  height: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  object-position: center bottom;
-  display: block;
-  filter: drop-shadow(0 28px 44px rgba(23, 51, 1, 0.18));
-  transition: filter 0.4s ease;
-}
-
-/* =============================================
    NAVIGATION DOTS
    ============================================= */
 .hs-nav {
   position: absolute;
   bottom: 36px;
-  left: 64px;
+  right: 64px;                        /* dots now on the RIGHT side */
   display: flex;
   align-items: center;
   gap: 9px;
@@ -454,60 +411,61 @@
    TABLET — 1024px
    ============================================= */
 @media (max-width: 1024px) {
-  .hs-left  { width: 50%; }
-  .hs-right { width: 48%; }
-  .hs-heading { font-size: clamp(28px, 4.4vw, 50px); }
+  .hs-slide   { padding: 32px 36px 56px 36px; gap: 20px; }
+  .hs-right   { flex: 0 0 44%; max-width: 44%; }
+  .hs-left    { flex: 0 0 52%; max-width: 52%; }
+  .hs-heading { font-size: clamp(26px, 3.8vw, 46px); }
 }
 
 /* =============================================
    TABLET PORTRAIT — 768px
    ============================================= */
 @media (max-width: 768px) {
-  .hs-wrap { min-height: 100svh; }
+  .hs-wrap  { min-height: 100svh; }
   .hs-slide {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 44px 28px 96px;
-    gap: 18px;
+    align-items: stretch;
+    padding: 28px 24px 76px;
+    gap: 16px;
   }
-  .hs-left  { width: 100%; }
   .hs-right {
+    flex: 0 0 42%;
+    max-width: 100%;
     width: 100%;
-    height: 300px;
-    align-self: auto;
-    padding-bottom: 0;
   }
-  .hs-right img {
-    max-height: 300px;
-    object-position: center center;
+  .hs-right img { max-height: 42vh; }
+  .hs-left {
+    flex: 1;
+    max-width: 100%;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
   }
-  .hs-heading { font-size: clamp(28px, 7vw, 44px); letter-spacing: -0.8px; }
-  .hs-des     { max-width: 100%; }
-  .hs-nav     { left: 28px; bottom: 30px; }
+  .hs-heading { font-size: clamp(26px, 6.5vw, 42px); letter-spacing: -0.6px; }
+  .hs-nav     { right: 24px; bottom: 26px; }
 }
 
 /* =============================================
    MOBILE — 576px
    ============================================= */
 @media (max-width: 576px) {
-  .hs-slide  { padding: 30px 20px 82px; gap: 16px; }
-  .hs-h1     { font-size: 13.5px; }
-  .hs-heading { font-size: clamp(24px, 8vw, 36px); letter-spacing: -0.4px; }
-  .hs-des    { font-size: 13.5px; }
-  .hs-right  { height: 250px; }
-  .hs-right img { max-height: 250px; }
-  .hs-pill   { font-size: 12.5px; }
-  .hs-arr    { width: 36px; height: 36px; }
-  .hs-nav    { left: 20px; bottom: 24px; }
-  .hs-progress { height: 2.5px; }
+  .hs-slide   { padding: 24px 16px 68px; gap: 12px; }
+  .hs-right   { flex: 0 0 36%; }
+  .hs-right img { max-height: 36vh; }
+  .hs-h1      { font-size: 12.5px; }
+  .hs-heading { font-size: clamp(22px, 7.5vw, 32px); letter-spacing: -0.3px; }
+  .hs-des     { font-size: 13px; line-height: 1.65; }
+  .hs-pills   { gap: 7px; }
+  .hs-pill    { font-size: 12px; padding: 6px 12px 6px 6px; }
+  .hs-pill-icon { width: 26px; height: 26px; }
+  .hs-arr     { width: 34px; height: 34px; }
+  .hs-nav     { right: 16px; bottom: 20px; }
 }
 
 /* =============================================
    SMALL — 400px
    ============================================= */
 @media (max-width: 400px) {
-  .hs-heading { font-size: 24px; }
-  .hs-h1      { font-size: 13px; }
-  .hs-right   { height: 210px; }
-  .hs-right img { max-height: 210px; }
+  .hs-heading { font-size: 21px; }
+  .hs-h1      { font-size: 12px; }
 }
