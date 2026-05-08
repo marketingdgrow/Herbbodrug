@@ -41,10 +41,6 @@
   from { opacity: 0; transform: translateY(-18px); }
   to   { opacity: 1; transform: translateY(0);     }
 }
-@keyframes imgRise {
-  from { opacity: 0; transform: translateY(50px) scale(0.94); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);    }
-}
 @keyframes underlineGrow {
   from { width: 0;    }
   to   { width: 100%; }
@@ -53,11 +49,6 @@
   0%   { box-shadow: 0 0 0 0   rgba(58, 125, 20, 0.55); }
   65%  { box-shadow: 0 0 0 8px rgba(58, 125, 20, 0);    }
   100% { box-shadow: 0 0 0 0   rgba(58, 125, 20, 0);    }
-}
-@keyframes blobSpin {
-  0%   { transform: rotate(0deg)   scale(1);    }
-  50%  { transform: rotate(180deg) scale(1.07); }
-  100% { transform: rotate(360deg) scale(1);    }
 }
 
 /* =============================================
@@ -72,25 +63,6 @@
   font-family: "DM Sans", sans-serif;
   background-color: var(--hs-bg);
 }
-.hs-wrap::before,
-.hs-wrap::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-.hs-wrap::before {
-  width: 560px; height: 560px;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.22) 0%, transparent 70%);
-  top: -200px; left: -170px;           /* blob now on LEFT side */
-  animation: blobSpin 22s linear infinite;
-}
-.hs-wrap::after {
-  width: 380px; height: 380px;
-  background: radial-gradient(ellipse, rgba(23,51,1,0.07) 0%, transparent 70%);
-  bottom: -130px; right: -90px;        /* second blob on RIGHT */
-}
 
 /* =============================================
    SLIDE BASE
@@ -98,26 +70,84 @@
 .hs-slide {
   position: absolute;
   inset: 0;
-  box-sizing: border-box;
-  padding: 36px 52px 60px 44px;
   display: flex;
-  flex-direction: row;
   align-items: stretch;
-  justify-content: space-between;
-  gap: 24px;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
 }
 
-/* ── ACTIVE ── */
+/* Full background image */
+.hs-slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* =============================================
+   OVERLAY GRADIENTS
+   ============================================= */
+.hs-slide-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.hs-slide-overlay--right {
+  background: linear-gradient(
+    to right,
+    transparent 30%,
+    rgba(10, 28, 2, 0.25) 50%,
+    rgba(10, 28, 2, 0.82) 70%,
+    rgba(10, 28, 2, 0.92) 100%
+  );
+}
+.hs-slide-overlay--left {
+  background: linear-gradient(
+    to left,
+    transparent 30%,
+    rgba(10, 28, 2, 0.25) 50%,
+    rgba(10, 28, 2, 0.82) 70%,
+    rgba(10, 28, 2, 0.92) 100%
+  );
+}
+
+/* =============================================
+   CONTENT BLOCK
+   ============================================= */
+.hs-content {
+  position: relative;
+  z-index: 3;
+  width: 48%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 48px 52px;
+  box-sizing: border-box;
+}
+.hs-content--right {
+  margin-left: auto;
+  margin-right: 4%;
+}
+.hs-content--left {
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 80px;
+  padding-right: 24px;
+}
+
+/* =============================================
+   SLIDE STATES
+   ============================================= */
 .hs-slide--active {
   opacity: 1;
   pointer-events: all;
   transform: translateX(0);
 }
-
-/* ── ENTER / EXIT ── */
 .hs-slide--enter-next {
   pointer-events: none;
   animation: enterFromRight var(--hs-anim) var(--hs-ease) both;
@@ -137,7 +167,6 @@
 .hs-slide--hidden {
   opacity: 0;
   pointer-events: none;
-  transform: translateX(0);
 }
 
 /* ── Content stagger on active / entering slides ── */
@@ -161,11 +190,6 @@
 .hs-slide--enter-prev .hs-btn {
   animation: contentUp 0.65s var(--hs-ease) 0.38s both;
 }
-.hs-slide--active .hs-right,
-.hs-slide--enter-next .hs-right,
-.hs-slide--enter-prev .hs-right {
-  animation: imgRise 0.85s var(--hs-ease) 0.08s both;
-}
 .hs-slide--active .underline-wrap::after,
 .hs-slide--enter-next .underline-wrap::after,
 .hs-slide--enter-prev .underline-wrap::after {
@@ -173,64 +197,35 @@
 }
 
 /* =============================================
-   LEFT COLUMN — IMAGE  (was .hs-right)
+   BADGE
    ============================================= */
-.hs-right {
-  flex: 0 0 44%;
-  max-width: 44%;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
-}
-.hs-right img {
-  width: 100%;
-  height: auto;
-  max-height: 72vh;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 28px 44px rgba(23, 51, 1, 0.18));
-  transition: filter 0.4s ease;
-}
-
-/* =============================================
-   RIGHT COLUMN — CONTENT  (was .hs-left)
-   ============================================= */
-.hs-left {
-  flex: 0 0 52%;
-  max-width: 52%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
-  z-index: 3;
-}
-
-/* Badge */
 .hs-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(23, 51, 1, 0.09);
-  border: 1px solid rgba(23, 51, 1, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   padding: 5px 14px;
   font-size: 11.5px;
   font-weight: 600;
-  color: var(--hs-dark);
+  color: #d4f0b0;
   letter-spacing: 0.45px;
   width: fit-content;
+  backdrop-filter: blur(8px);
 }
 .hs-badge-dot {
-  width: 7px; height: 7px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--hs-green);
+  background: var(--hs-accent);
   flex-shrink: 0;
   animation: pulseDot 2.4s ease-in-out infinite;
 }
 
+/* =============================================
+   TEXT BLOCK
+   ============================================= */
 .hs-text-block {
   display: flex;
   flex-direction: column;
@@ -240,15 +235,15 @@
   font-family: "Poppins", sans-serif;
   font-size: clamp(13px, 1.5vw, 18px);
   font-weight: 600;
-  color: var(--hs-mid);
+  color: var(--hs-accent);
   margin: 0 0 4px;
   line-height: 1.3;
 }
 .hs-heading {
   font-family: "Poppins", sans-serif;
-  font-size: clamp(28px, 4vw, 56px);
+  font-size: clamp(28px, 4vw, 54px);
   font-weight: 800;
-  color: var(--hs-dark);
+  color: #ffffff;
   line-height: 1.08;
   letter-spacing: -1.2px;
   margin: 0 0 14px;
@@ -261,7 +256,8 @@
 .underline-wrap::after {
   content: "";
   position: absolute;
-  bottom: -6px; left: 0;
+  bottom: -6px;
+  left: 0;
   height: 3.5px;
   width: 0;
   background: linear-gradient(90deg, var(--hs-green), var(--hs-accent));
@@ -270,13 +266,15 @@
 .hs-des {
   font-size: clamp(13.5px, 1.2vw, 15.5px);
   line-height: 1.78;
-  color: var(--hs-mid);
+  color: rgba(255, 255, 255, 0.82);
   font-weight: 400;
   max-width: 100%;
   margin: 0;
 }
 
-/* Pills */
+/* =============================================
+   PILLS
+   ============================================= */
 .hs-pills {
   display: flex;
   flex-direction: column;
@@ -288,27 +286,30 @@
   gap: 10px;
   padding: 7px 16px 7px 7px;
   border-radius: 50px;
-  border: 1.5px solid rgba(23, 51, 1, 0.25);
-  background: rgba(255, 255, 255, 0.32);
-  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
   font-weight: 600;
   font-size: 13px;
-  color: var(--hs-dark);
+  color: #ffffff;
   width: fit-content;
   cursor: default;
   transition: background 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
 }
 .hs-pill:hover {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.22);
   transform: translateX(7px);
-  box-shadow: 0 4px 18px var(--hs-shadow);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
 .hs-pill-icon {
-  width: 30px; height: 30px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--hs-dark);
   color: var(--hs-accent);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   transition: transform 0.28s ease;
 }
@@ -316,7 +317,9 @@
   transform: rotate(15deg) scale(1.12);
 }
 
-/* CTA Button */
+/* =============================================
+   CTA BUTTON
+   ============================================= */
 .hs-btn {
   display: inline-flex;
   align-items: center;
@@ -328,22 +331,25 @@
   font-family: "DM Sans", sans-serif;
   font-weight: 700;
   font-size: 15px;
-  color: var(--hs-mid);
+  color: #ffffff;
   width: fit-content;
 }
 .hs-btn-circle {
-  width: 40px; height: 40px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 2px solid var(--hs-mid);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--hs-mid);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
   transition: background 0.28s ease, border-color 0.28s ease,
               color 0.28s ease, transform 0.35s ease;
 }
 .hs-btn:hover .hs-btn-circle {
-  background: var(--hs-dark);
-  border-color: var(--hs-dark);
-  color: var(--hs-accent);
+  background: var(--hs-accent);
+  border-color: var(--hs-accent);
+  color: var(--hs-dark);
   transform: rotate(45deg) scale(1.08);
 }
 
@@ -353,16 +359,17 @@
 .hs-nav {
   position: absolute;
   bottom: 36px;
-  right: 64px;                        /* dots now on the RIGHT side */
+  right: 64px;
   display: flex;
   align-items: center;
   gap: 9px;
   z-index: 20;
 }
 .hs-dot {
-  width: 8px; height: 8px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(23, 51, 1, 0.2);
+  background: rgba(255, 255, 255, 0.35);
   border: none;
   cursor: pointer;
   padding: 0;
@@ -373,7 +380,7 @@
 .hs-dot.active {
   width: 30px;
   border-radius: 4px;
-  background: var(--hs-dark);
+  background: #ffffff;
 }
 
 /* =============================================
@@ -383,22 +390,25 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.52);
-  border: 1.5px solid rgba(23, 51, 1, 0.16);
-  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   z-index: 20;
   backdrop-filter: blur(8px);
-  color: var(--hs-dark);
+  color: #ffffff;
   transition: background 0.28s ease, box-shadow 0.28s ease,
               transform 0.28s ease, border-color 0.28s ease;
 }
 .hs-arr:hover {
-  background: rgba(255, 255, 255, 0.96);
-  border-color: rgba(23, 51, 1, 0.3);
-  box-shadow: 0 6px 22px var(--hs-shadow);
+  background: rgba(255, 255, 255, 0.36);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
   transform: translateY(-50%) scale(1.1);
 }
 .hs-arr:active {
@@ -408,12 +418,47 @@
 .hs-arr-r { right: 18px; }
 
 /* =============================================
+   SLIDE COUNTER
+   ============================================= */
+.hs-counter {
+  position: absolute;
+  bottom: 40px;
+  left: 52px;
+  z-index: 20;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+.hs-counter span {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+/* =============================================
+   PROGRESS BAR
+   ============================================= */
+.hs-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 20;
+}
+.hs-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--hs-green), var(--hs-accent));
+  transition: width 0.1s linear;
+}
+
+/* =============================================
    TABLET — 1024px
    ============================================= */
 @media (max-width: 1024px) {
-  .hs-slide   { padding: 32px 36px 56px 36px; gap: 20px; }
-  .hs-right   { flex: 0 0 44%; max-width: 44%; }
-  .hs-left    { flex: 0 0 52%; max-width: 52%; }
+  .hs-content { width: 52%; padding: 40px 36px; }
   .hs-heading { font-size: clamp(26px, 3.8vw, 46px); }
 }
 
@@ -422,44 +467,42 @@
    ============================================= */
 @media (max-width: 768px) {
   .hs-wrap  { min-height: 100svh; }
-  .hs-slide {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 28px 24px 76px;
-    gap: 16px;
+  .hs-slide { align-items: flex-end; }
+  .hs-slide-overlay--right,
+  .hs-slide-overlay--left {
+    background: linear-gradient(
+      to top,
+      rgba(10, 28, 2, 0.93) 0%,
+      rgba(10, 28, 2, 0.6) 45%,
+      rgba(10, 28, 2, 0.15) 75%,
+      transparent 100%
+    );
   }
-  .hs-right {
-    flex: 0 0 42%;
-    max-width: 100%;
+  .hs-content {
     width: 100%;
-  }
-  .hs-right img { max-height: 42vh; }
-  .hs-left {
-    flex: 1;
     max-width: 100%;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 12px;
+    margin: 0 !important;
+    padding: 32px 24px 80px;
   }
   .hs-heading { font-size: clamp(26px, 6.5vw, 42px); letter-spacing: -0.6px; }
   .hs-nav     { right: 24px; bottom: 26px; }
+  .hs-counter { left: 24px; bottom: 30px; }
 }
 
 /* =============================================
    MOBILE — 576px
    ============================================= */
 @media (max-width: 576px) {
-  .hs-slide   { padding: 24px 16px 68px; gap: 12px; }
-  .hs-right   { flex: 0 0 36%; }
-  .hs-right img { max-height: 36vh; }
-  .hs-h1      { font-size: 12.5px; }
-  .hs-heading { font-size: clamp(22px, 7.5vw, 32px); letter-spacing: -0.3px; }
-  .hs-des     { font-size: 13px; line-height: 1.65; }
-  .hs-pills   { gap: 7px; }
-  .hs-pill    { font-size: 12px; padding: 6px 12px 6px 6px; }
+  .hs-content   { padding: 24px 16px 72px; gap: 12px; }
+  .hs-h1        { font-size: 12.5px; }
+  .hs-heading   { font-size: clamp(22px, 7.5vw, 32px); letter-spacing: -0.3px; }
+  .hs-des       { font-size: 13px; line-height: 1.65; }
+  .hs-pills     { gap: 7px; }
+  .hs-pill      { font-size: 12px; padding: 6px 12px 6px 6px; }
   .hs-pill-icon { width: 26px; height: 26px; }
-  .hs-arr     { width: 34px; height: 34px; }
-  .hs-nav     { right: 16px; bottom: 20px; }
+  .hs-arr       { width: 34px; height: 34px; }
+  .hs-nav       { right: 16px; bottom: 20px; }
+  .hs-counter   { left: 16px; bottom: 24px; font-size: 11px; }
 }
 
 /* =============================================

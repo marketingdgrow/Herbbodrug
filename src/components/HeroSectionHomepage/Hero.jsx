@@ -3,16 +3,20 @@ import "./Hero.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLeaf, faShieldHalved, faStar, faUsers,
-  faBoxOpen, faTruck, faArrowRight, faChevronLeft, faChevronRight,
+  faBoxOpen, faTruck, faArrowRight, faChevronLeft, faChevronRight, faFlask,
 } from "@fortawesome/free-solid-svg-icons";
 
-const heroImg   = "/imgs/11.111.png";
-const slide2Img = "/imgs/22.111.png";
-const slide3Img = "/imgs/33.111.png";
+// Public folder images — no import needed, use string paths directly
+const slide1Bg = "/imgs/Artboard1.jpeg";
+const slide2Bg = "/imgs/Artboard2.jpeg";
+const slide3Bg = "/imgs/Artboard3.jpeg";
+const slide4Bg = "/imgs/Artboard4.jpeg";
 
 const slides = [
   {
     id: 0,
+    bgImg: slide1Bg,
+    contentSide: "left",
     badge: "Since 1944 · GMP Certified",
     h1: "Herbal & Ayurvedic",
     heading: "Pharma Solutions",
@@ -23,11 +27,11 @@ const slides = [
       { icon: faLeaf,         label: "100% Herbal & Ayurvedic" },
       { icon: faShieldHalved, label: "100% Trusted Solutions"  },
     ],
-    imgSrc: heroImg,
-    imgAlt: "Ayurvedic Pharma Solutions",
   },
   {
     id: 1,
+    bgImg: slide2Bg,
+    contentSide: "left",
     badge: "Authentic Ayurveda · Since 1944",
     h1: "Heritage of Healing,",
     heading: "Future of Wellness",
@@ -38,23 +42,36 @@ const slides = [
       { icon: faStar,  label: "80+ Years of Legacy" },
       { icon: faUsers, label: "Trusted by Millions"  },
     ],
-    imgSrc: slide2Img,
-    imgAlt: "Heritage of Wellness",
   },
   {
     id: 2,
+    bgImg: slide3Bg,
+    contentSide: "right",
+    badge: "Traditional Roots · Modern Science",
+    h1: "Rooted in Nature,",
+    heading: "Crafted for You",
+    description:
+      "Blending ancient Ayurvedic wisdom with modern pharmaceutical standards — every product is crafted with precision, purity, and purpose.",
+    btnLabel: "Explore Products",
+    pills: [
+      { icon: faFlask, label: "GMP Certified Facility" },
+      { icon: faLeaf,  label: "Natural Ingredients"    },
+    ],
+  },
+  {
+    id: 3,
+    bgImg: slide4Bg,
+    contentSide: "left",
     badge: "Official Online Store · 500+ Products",
     h1: "Shop Authentic Ayurvedic",
     heading: "Medicines Online",
     description:
-      "Introducing the official online store. Discover 500+ Ayurvedic medicines and exclusive products — with flat 10% off on your first order.",
+      "Introducing our official online store. Discover 500+ Ayurvedic medicines and exclusive products — with flat 10% off on your first order.",
     btnLabel: "Shop Now",
     pills: [
       { icon: faBoxOpen, label: "500+ Ayurvedic Products" },
       { icon: faTruck,   label: "70+ Treatments"          },
     ],
-    imgSrc: slide3Img,
-    imgAlt: "Shop Ayurvedic Medicines Online",
   },
 ];
 
@@ -66,11 +83,27 @@ const Hero = () => {
   const [prev,      setPrev]      = useState(null);
   const [direction, setDirection] = useState("next");
   const [animating, setAnimating] = useState(false);
+  const [progress,  setProgress]  = useState(0);
   const timerRef    = useRef(null);
+  const progressRef = useRef(null);
+  const startTime   = useRef(null);
   const touchStartX = useRef(0);
+
+  const startProgress = useCallback(() => {
+    cancelAnimationFrame(progressRef.current);
+    startTime.current = performance.now();
+    const tick = (now) => {
+      const elapsed = now - startTime.current;
+      const pct = Math.min((elapsed / DURATION) * 100, 100);
+      setProgress(pct);
+      if (pct < 100) progressRef.current = requestAnimationFrame(tick);
+    };
+    progressRef.current = requestAnimationFrame(tick);
+  }, []);
 
   const startTimer = useCallback(() => {
     clearInterval(timerRef.current);
+    startProgress();
     timerRef.current = setInterval(() => {
       transition((c) => (c + 1) % slides.length, "next");
     }, DURATION);
@@ -78,7 +111,10 @@ const Hero = () => {
 
   useEffect(() => {
     startTimer();
-    return () => clearInterval(timerRef.current);
+    return () => {
+      clearInterval(timerRef.current);
+      cancelAnimationFrame(progressRef.current);
+    };
   }, [startTimer]);
 
   const transition = useCallback(
@@ -134,19 +170,30 @@ const Hero = () => {
     >
       {slides.map((slide, i) => {
         const state = stateOf(i);
+        const overlayClass = slide.contentSide === "left"
+          ? "hs-slide-overlay--left"
+          : "hs-slide-overlay--right";
+        const contentClass = slide.contentSide === "left"
+          ? "hs-content--left"
+          : "hs-content--right";
+
         return (
           <div
             key={slide.id}
             className={`hs-slide hs-slide--${state}`}
             aria-hidden={i !== current}
           >
-            {/* ── LEFT — IMAGE ── */}
-            <div className="hs-right">
-              <img src={slide.imgSrc} alt={slide.imgAlt} />
-            </div>
+            {/* Full background image */}
+            <div
+              className="hs-slide-bg"
+              style={{ backgroundImage: `url(${slide.bgImg})` }}
+            />
 
-            {/* ── RIGHT — CONTENT ── */}
-            <div className="hs-left">
+            {/* Directional gradient overlay */}
+            <div className={`hs-slide-overlay ${overlayClass}`} />
+
+            {/* Content panel */}
+            <div className={`hs-content ${contentClass}`}>
               <div className="hs-badge">
                 <span className="hs-badge-dot" />
                 {slide.badge}
@@ -162,11 +209,7 @@ const Hero = () => {
 
               <div className="hs-pills">
                 {slide.pills.map((p, pi) => (
-                  <div
-                    className="hs-pill"
-                    key={pi}
-                    style={{ "--pill-delay": `${pi * 0.08}s` }}
-                  >
+                  <div className="hs-pill" key={pi}>
                     <div className="hs-pill-icon">
                       <FontAwesomeIcon icon={p.icon} size="xs" />
                     </div>
@@ -186,7 +229,7 @@ const Hero = () => {
         );
       })}
 
-      {/* ── ARROWS ── */}
+      {/* Arrows */}
       <button className="hs-arr hs-arr-l" onClick={handlePrev} aria-label="Previous slide">
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
@@ -194,7 +237,7 @@ const Hero = () => {
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
 
-      {/* ── DOTS ── */}
+      {/* Dots */}
       <div className="hs-nav" role="tablist" aria-label="Slide navigation">
         {slides.map((_, i) => (
           <button
@@ -206,6 +249,11 @@ const Hero = () => {
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
+      </div>
+
+      {/* Progress bar */}
+      <div className="hs-progress">
+        <div className="hs-progress-bar" style={{ width: `${progress}%` }} />
       </div>
     </section>
   );
