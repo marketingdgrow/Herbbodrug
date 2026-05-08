@@ -1,0 +1,530 @@
+/* ══════════════════════════════════════════════════════════
+   DIRECT SELLING PAGE — DirectSelling.css
+   Reuses Wholesale theme — ws-* classes shared
+   ══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root {
+    --g: #2d7a3a;
+    --g2: #1a4a22;
+    --g-pale: #e8f5eb;
+    --g-mid: rgba(45, 122, 58, 0.15);
+    --dark: #0f1f0a;
+    --text: #2a3a28;
+    --muted: #6b7c6a;
+    --white: #fff;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ws-page {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+.ws-container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ── HERO ── */
+.ws-hero {
+    position: relative;
+    min-height: 540px;
+    background: linear-gradient(160deg, #071a0b 0%, #0f2d14 50%, #1e5a28 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 24px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ws-hero-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+}
+
+.ws-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.ws-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #7dd894;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+}
+
+.ws-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6.5vw, 70px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 20px;
+    animation: fadeUp 0.9s 0.15s ease both;
+}
+
+.ws-hero h1 em {
+    color: #7dd894;
+    font-style: italic;
+}
+
+.ws-hero p {
+    font-size: 16.5px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin: 0 0 32px;
+    animation: fadeUp 0.9s 0.28s ease both;
+}
+
+.ws-hero-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.42s ease both;
+}
+
+.ws-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--g);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 700;
+    padding: 12px 26px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(45, 122, 58, 0.4);
+    transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+}
+
+.ws-btn-primary:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+    box-shadow: 0 10px 28px rgba(45, 122, 58, 0.45);
+    color: #fff;
+}
+
+.ws-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 11px 26px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: border-color 0.25s, background 0.25s;
+}
+
+.ws-btn-ghost:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+/* Stats bar */
+.ws-stats-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 56px;
+    animation: fadeUp 1s 0.6s ease both;
+}
+
+.ws-stat {
+    flex: 1;
+    padding: 24px 16px;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ws-stat:last-child {
+    border-right: none;
+}
+
+.ws-stat-num {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #7dd894;
+}
+
+.ws-stat-label {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* ── BENEFITS ── */
+.ws-benefits {
+    padding: 96px 0;
+    background: var(--white);
+}
+
+.ws-section-head {
+    text-align: center;
+    margin-bottom: 52px;
+}
+
+.ws-section-head p {
+    color: var(--muted);
+    font-size: 16px;
+    margin: 10px auto 0;
+    max-width: 480px;
+}
+
+.ws-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--g);
+    background: var(--g-pale);
+    padding: 5px 14px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+
+.ws-section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0;
+}
+
+.ws-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.ws-benefit-card {
+    background: var(--g-pale);
+    border-radius: 20px;
+    padding: 30px 24px;
+    border: 1px solid rgba(45, 122, 58, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ws-benefit-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(45, 122, 58, 0.13);
+}
+
+.ws-benefit-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--g);
+    color: #fff;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.ws-benefit-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 8px;
+}
+
+.ws-benefit-card p {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.65;
+}
+
+/* ── CHANNELS ── */
+.ws-categories {
+    padding: 96px 0;
+    background: #f7fdf8;
+}
+
+.ws-cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.ws-cat-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 16px;
+    line-height: 1.2;
+}
+
+.ws-cat-text p {
+    color: var(--muted);
+    font-size: 15.5px;
+    line-height: 1.75;
+    margin: 0 0 28px;
+}
+
+.ws-cat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ws-cat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    border: 1px solid rgba(45, 122, 58, 0.12);
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.ws-cat-item:hover {
+    transform: translateX(6px);
+    border-color: var(--g);
+    box-shadow: 0 4px 14px rgba(45, 122, 58, 0.1);
+}
+
+.ws-cat-item svg {
+    color: var(--g);
+    flex-shrink: 0;
+}
+
+/* ── PROCESS ── */
+.ws-process {
+    padding: 96px 0;
+    background: var(--white);
+}
+
+.ws-process-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+}
+
+.ws-process-track::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(to right, var(--g), rgba(45, 122, 58, 0.2));
+    z-index: 0;
+}
+
+.ws-process-step {
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.ws-process-step-num {
+    width: 64px;
+    height: 64px;
+    background: var(--g);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(45, 122, 58, 0.3);
+    transition: transform 0.25s;
+}
+
+.ws-process-step:hover .ws-process-step-num {
+    transform: scale(1.1);
+}
+
+.ws-process-step-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 8px;
+}
+
+.ws-process-step-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── GLOBAL/TRUST ── */
+.ws-global {
+    padding: 96px 0;
+    background: linear-gradient(135deg, var(--g2), var(--g));
+}
+
+.ws-global-inner {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.ws-global-icon {
+    width: 76px;
+    height: 76px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin: 0 auto 24px;
+}
+
+.ws-global-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 16px;
+}
+
+.ws-global-inner p {
+    font-size: 15.5px;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.75;
+    margin: 0 0 28px;
+}
+
+.ws-global-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ws-global-tags span {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 50px;
+}
+
+/* ── CTA ── */
+.ws-cta {
+    padding: 80px 24px;
+    background: var(--g-pale);
+    text-align: center;
+}
+
+.ws-cta-box h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 12px;
+}
+
+.ws-cta-box p {
+    color: var(--muted);
+    font-size: 16px;
+    margin: 0 0 28px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) {
+    .ws-benefits-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ws-cat-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .ws-process-track {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ws-process-track::before {
+        display: none;
+    }
+}
+
+@media(max-width:600px) {
+
+    .ws-benefits-grid,
+    .ws-process-track {
+        grid-template-columns: 1fr;
+    }
+
+    .ws-stats-bar {
+        flex-wrap: wrap;
+    }
+
+    .ws-stat {
+        flex: 1 1 50%;
+    }
+}

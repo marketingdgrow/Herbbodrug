@@ -4,10 +4,10 @@ import "./SideNav.css";
 import { Tag, Users, ShoppingCart, Repeat } from "lucide-react";
 
 const navItems = [
-  { path: "/white-labeling", icon: Tag,         label: "White Labeling" },
-  { path: "/wholesale",      icon: Users,        label: "Wholesale"      },
-  { path: "/online-shop",    icon: ShoppingCart, label: "Online Shop"    },
-  { path: "/transis",        icon: Repeat,       label: "Transis"        },
+  { path: "/Whitelabel", icon: Tag,         label: "Whitelabel" },
+  { path: "/Directsale",      icon: Users,        label: "Directsale"      },
+  { path: "/products",    icon: ShoppingCart, label: "Online Shop"    },
+  { path: "/Franchise",        icon: Repeat,       label: "Franchise"        },
 ];
 
 const SideNav = () => {

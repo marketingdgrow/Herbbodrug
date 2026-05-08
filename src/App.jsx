@@ -10,6 +10,12 @@ import Contact from "./pages/Contact";
 import ProductDetail from "./pages/ProductDetail";
 import Footer from "./components/Footer/Footer";
 import Products from "./pages/products";
+import Whitelabel from "./pages/Whitelabel";
+import Directsale from "./pages/Directsale";
+import Franchise from "./pages/Franchise";
+import Cosmetic from "./pages/Cosmetic";
+import General from "./pages/General";
+import Pattern from "./pages/Pattern";
 
 // import ProductDetail from "./pages/ProductDetail";
 
@@ -25,6 +31,12 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:slug" element={<ProductDetail />} />
+        <Route path="/whitelabel" element={<Whitelabel />} />
+        <Route path="/directsale" element={<Directsale />} />
+        <Route path="/franchise" element={<Franchise />} />
+        <Route path="/pattern" element={<Pattern />} />
+        <Route path="/cosmetic" element={<Cosmetic />} />
+        <Route path="/general" element={<General />} />
       </Routes>
       <Footer />
     </BrowserRouter>

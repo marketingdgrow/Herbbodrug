@@ -99,7 +99,7 @@ const Navbar = () => {
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         {/* ── LOGO ── */}
         <div className="nav-left">
-          <img src="/imgs/Logo Jpg-01.jpg" alt="logo" className="logo" />
+          <img src="/imgs/Logo.png" alt="logo" className="logo" />
         </div>
 
         {/* ── DESKTOP MENU ── */}
@@ -165,7 +165,8 @@ const Navbar = () => {
 
                   {/* Pattern Product */}
                   <div className="mega-col single-link">
-                    <Link to="/products/pattern" onClick={closeMega}>
+                    <Link to="/pattern" onClick={closeMega}>
+                    
                       <div className="mega-col-header">
                         <span className="mega-col-icon"><Tag size={16} /></span>
                         <p className="mega-col-heading">Pattern Product</p>
@@ -178,7 +179,7 @@ const Navbar = () => {
 
                   {/* Cosmetic Product */}
                   <div className="mega-col single-link">
-                    <Link to="/products/cosmetic" onClick={closeMega}>
+                    <Link to="/cosmetic" onClick={closeMega}>
                       <div className="mega-col-header">
                         <span className="mega-col-icon"><Sparkles size={16} /></span>
                         <p className="mega-col-heading">Cosmetic Product</p>
@@ -191,7 +192,7 @@ const Navbar = () => {
 
                   {/* General Product */}
                   <div className="mega-col single-link">
-                    <Link to="/products" onClick={closeMega}>
+                    <Link to="/general" onClick={closeMega}>
                       <div className="mega-col-header">
                         <span className="mega-col-icon"><Wheat size={16} /></span>
                         <p className="mega-col-heading">General Product</p>

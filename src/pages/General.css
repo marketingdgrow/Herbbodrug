@@ -1,0 +1,86 @@
+/* ══════════════════════════════════════════════════════════
+   GENERAL PRODUCT PAGE — GeneralProduct.css
+   ══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap');
+:root{--g:#2d7a3a;--g2:#1a4a22;--g-pale:#e8f5eb;--gold:#c8860a;--dark:#0f1f0a;--text:#2a3a28;--muted:#6b7c6a;--white:#fff}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.revealed{opacity:1;transform:translateY(0)}
+.gp-page{font-family:'DM Sans',sans-serif;color:var(--text);overflow-x:hidden}
+.gp-container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ── HERO ── */
+.gp-hero{
+  background:linear-gradient(150deg,#061209 0%,#112a18 45%,#267035 100%);
+  padding:88px 24px 80px;display:flex;flex-direction:column;align-items:center;
+  text-align:center;overflow:hidden;position:relative;
+}
+.gp-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M40 40 L60 20 L80 40 L60 60 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+
+.gp-pill{position:relative;z-index:2;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#7dd894;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:20px;animation:fadeUp .8s ease both}
+.gp-hero-content{position:relative;z-index:2;max-width:620px}
+.gp-hero-content h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,7vw,70px);font-weight:700;color:#fff;line-height:1.1;margin:0 0 18px;animation:fadeUp .9s .1s ease both}
+.gp-hero-content h1 em{color:#7dd894;font-style:italic}
+.gp-hero-content p{font-size:16.5px;color:rgba(255,255,255,.8);line-height:1.7;margin:0 0 28px;animation:fadeUp .9s .22s ease both}
+.gp-btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-size:14.5px;font-weight:700;padding:12px 26px;border-radius:50px;text-decoration:none;box-shadow:0 4px 18px rgba(45,122,58,.4);transition:transform .25s,filter .25s;animation:fadeUp .9s .34s ease both}
+.gp-btn-primary:hover{transform:translateY(-3px);filter:brightness(1.08);color:#fff}
+
+.gp-hero-nums{position:relative;z-index:2;display:flex;gap:0;margin-top:48px;background:rgba(255,255,255,.07);border-radius:16px;overflow:hidden;animation:fadeUp 1s .5s ease both;border:1px solid rgba(255,255,255,.1)}
+.gp-hero-num{flex:1;padding:20px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.gp-hero-num:last-child{border-right:none}
+.gp-num{display:block;font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:#7dd894;line-height:1}
+.gp-num-label{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px;display:block}
+
+/* ── SECTION COMMON ── */
+.gp-badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:var(--g-pale);padding:5px 14px;border-radius:50px;margin-bottom:12px}
+.gp-section-head{text-align:center;margin-bottom:48px}
+.gp-section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--dark);margin:0 0 10px}
+.gp-section-head p{color:var(--muted);font-size:16px;max-width:480px;margin:0 auto}
+
+/* ── THERAPEUTIC ── */
+.gp-thera{padding:96px 0;background:var(--white)}
+.gp-thera-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.gp-thera-card{border-radius:18px;padding:28px 24px;transition:transform .3s,box-shadow .3s;border:1px solid rgba(0,0,0,.05)}
+.gp-thera-card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(0,0,0,.08)}
+.gp-thera-icon{width:46px;height:46px;background:rgba(45,122,58,.12);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--g);margin-bottom:14px}
+.gp-thera-card h3{font-size:15.5px;font-weight:700;color:var(--dark);margin:0 0 6px}
+.gp-thera-card span{font-size:12.5px;color:var(--g);font-weight:600}
+
+/* ── PRODUCTS ── */
+.gp-products{padding:96px 0;background:#f7fdf8}
+.gp-filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:36px;padding:14px 18px;background:var(--white);border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.gp-filters svg{color:var(--muted);flex-shrink:0}
+.gp-filter-btn{background:none;border:1.5px solid rgba(45,122,58,.2);color:var(--muted);font-size:13px;font-weight:600;padding:7px 16px;border-radius:50px;cursor:pointer;transition:all .22s;font-family:'DM Sans',sans-serif}
+.gp-filter-btn:hover{border-color:var(--g);color:var(--g)}
+.gp-filter-btn.active{background:var(--g);color:#fff;border-color:var(--g)}
+.gp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.gp-card{background:var(--white);border-radius:20px;overflow:hidden;border:1px solid rgba(45,122,58,.08);transition:transform .3s,box-shadow .3s}
+.gp-card:hover{transform:translateY(-8px);box-shadow:0 18px 48px rgba(45,122,58,.12)}
+.gp-card-img-dummy{width:100%;height:170px;background:linear-gradient(135deg,#e8f5eb,rgba(45,122,58,.15))}
+.gp-card-body{padding:20px}
+.gp-card-form{font-size:11px;font-weight:700;color:var(--g);letter-spacing:.07em;text-transform:uppercase}
+.gp-card-body h3{font-size:16px;font-weight:700;color:var(--dark);margin:6px 0 8px}
+.gp-card-body p{font-size:13px;color:var(--muted);line-height:1.6;margin:0}
+.gp-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.gp-rating{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--gold)}
+.gp-card-btn{display:inline-flex;align-items:center;gap:5px;color:var(--g);font-size:13px;font-weight:700;text-decoration:none;transition:gap .2s}
+.gp-card-btn:hover{gap:9px}
+
+/* ── QUALITY ── */
+.gp-quality{padding:96px 0;background:var(--white)}
+.gp-quality-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.gp-quality-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--dark);margin:0 0 16px;line-height:1.2}
+.gp-quality-text p{color:var(--muted);font-size:15.5px;line-height:1.75;margin:0 0 20px}
+.gp-quality-tags{display:flex;flex-wrap:wrap;gap:8px}
+.gp-quality-tags span{background:var(--g-pale);color:var(--g);font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:50px}
+.gp-quality-dummy{width:100%;height:340px;background:linear-gradient(135deg,var(--g-pale),rgba(45,122,58,.2));border-radius:22px}
+
+/* ── CTA ── */
+.gp-cta{padding:96px 24px;background:linear-gradient(135deg,var(--g2),var(--g));text-align:center}
+.gp-cta-inner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:700;color:#fff;margin:0 0 14px}
+.gp-cta-inner p{font-size:16px;color:rgba(255,255,255,.82);margin:0 0 28px}
+.gp-btn-ghost-dark{display:inline-flex;align-items:center;border:2px solid rgba(255,255,255,.4);color:#fff;font-size:14.5px;font-weight:600;padding:11px 26px;border-radius:50px;text-decoration:none;transition:border-color .25s,background .25s}
+.gp-btn-ghost-dark:hover{border-color:#fff;background:rgba(255,255,255,.08);color:#fff}
+
+@media(max-width:900px){.gp-thera-grid{grid-template-columns:1fr 1fr}.gp-grid{grid-template-columns:1fr 1fr}.gp-quality-inner{grid-template-columns:1fr;gap:36px}}
+@media(max-width:600px){.gp-thera-grid,.gp-grid{grid-template-columns:1fr}.gp-hero-nums{flex-wrap:wrap}.gp-hero-num{flex:1 1 50%}.gp-hero,.gp-thera,.gp-products,.gp-quality,.gp-cta{padding:64px 0}}
