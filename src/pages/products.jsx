@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import "./products.css";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
+import { ShoppingCart, Check } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 const normalizeFilterValue = (value) => {
   if (!value) return "";
-
   const normalized = value.toString().trim().toLowerCase();
   return normalized.endsWith("s") ? normalized.slice(0, -1) : normalized;
 };
@@ -24,7 +25,6 @@ const CATEGORY_OPTIONS = [
 ];
 
 const FORM_OPTIONS = ["Tablet", "Capsules", "Syrup", "Liquid"];
-
 const TYPE_OPTIONS = ["Chronic Disease", "General Wellness", "Acute Relief"];
 
 const CATEGORY_ALIAS_MAP = {
@@ -47,30 +47,23 @@ const TYPE_ALIAS_MAP = {
 };
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [filters, setFilters] = useState({
-    category: [],
-    form: [],
-    type: [],
-  });
-  // const { slug } = useParams();
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts]     = useState([]);
+  const [filters, setFilters]       = useState({ category: [], form: [], type: [] });
+  const [loading, setLoading]       = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [addedMap, setAddedMap]     = useState({});   // tracks "just added" animation
   const navigate = useNavigate();
+  const { addToCart, isInCart } = useCart();
   const perPage = 12;
 
-  // FETCH DATA
   useEffect(() => {
     fetch("/products.json")
       .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      });
+      .then((data) => { setProducts(data); setLoading(false); });
   }, []);
 
-  // FILTER
+  // ── FILTER ──────────────────────────────────────────────────────────────────
   const filtered = products.filter((p) => {
     const selectedCategories = filters.category
       .flatMap((cat) => CATEGORY_ALIAS_MAP[cat] || [cat])
@@ -84,10 +77,9 @@ const Products = () => {
       .map(normalizeFilterValue);
 
     const productForms = Array.isArray(p.forms) ? p.forms : [p.forms];
-
     const normalizedCategory = normalizeFilterValue(p.category);
-    const normalizedType = normalizeFilterValue(p.productType);
-    const normalizedForms = productForms.map(normalizeFilterValue);
+    const normalizedType     = normalizeFilterValue(p.productType);
+    const normalizedForms    = productForms.map(normalizeFilterValue);
 
     const categoryMatch =
       selectedCategories.length === 0 ||
@@ -98,18 +90,17 @@ const Products = () => {
       normalizedForms.some((f) => selectedForms.includes(f));
 
     const typeMatch =
-      filters.type.length === 
-      0 ||
+      filters.type.length === 0 ||
       selectedTypeProductTypes.includes(normalizedType) ||
       selectedTypeCategories.includes(normalizedCategory);
 
     return categoryMatch && formMatch && typeMatch;
   });
 
-  // PAGINATION
+  // ── PAGINATION ───────────────────────────────────────────────────────────────
   const totalPages = Math.ceil(filtered.length / perPage);
-  const start = (currentPage - 1) * perPage;
-  const paginated = filtered.slice(start, start + perPage);
+  const start      = (currentPage - 1) * perPage;
+  const paginated  = filtered.slice(start, start + perPage);
 
   const toggleFilter = (type, value) => {
     setFilters((prev) => {
@@ -121,29 +112,40 @@ const Products = () => {
           : [...prev[type], value],
       };
     });
-
     setCurrentPage(1);
   };
 
+  // ── ADD TO CART with brief animation ────────────────────────────────────────
+  const handleAddToCart = (product, e) => {
+    e.stopPropagation();
+    addToCart(product);
+    setAddedMap((prev) => ({ ...prev, [product.id]: true }));
+    setTimeout(() => {
+      setAddedMap((prev) => ({ ...prev, [product.id]: false }));
+    }, 1500);
+  };
+
+  // ── DISCOUNT % ───────────────────────────────────────────────────────────────
+  const discountPct = (mrp, offer) =>
+    Math.round(((mrp - offer) / mrp) * 100);
+
   return (
     <>
-      <Banner title="Our Product " path={["Home", "Shop"]} />
+      <Banner title="Our Products" path={["Home", "Shop"]} />
+
       {/* MOBILE FILTER BUTTON */}
       <button className="filter-btn" onClick={() => setShowSidebar(true)}>
         ☰ Filters
       </button>
 
-      {/* OVERLAY */}
       {showSidebar && (
-        <div className="overlay" onClick={() => setShowSidebar(false)}></div>
+        <div className="overlay" onClick={() => setShowSidebar(false)} />
       )}
 
       <div className="page">
-        {/* SIDEBAR */}
+        {/* ── SIDEBAR ─────────────────────────────────────────────────────── */}
         <aside className={`sidebar-cat ${showSidebar ? "open" : ""}`}>
-          <button className="close-btn" onClick={() => setShowSidebar(false)}>
-            ✕
-          </button>
+          <button className="close-btn" onClick={() => setShowSidebar(false)}>✕</button>
 
           <h3>Category</h3>
           {CATEGORY_OPTIONS.map((cat) => (
@@ -182,40 +184,78 @@ const Products = () => {
           ))}
         </aside>
 
-        {/* CONTENT */}
+        {/* ── PRODUCT GRID ─────────────────────────────────────────────────── */}
         <div className="content">
-          {/* <div className="product-titles">
-            <h2 className="homecategory-title"></h2>
-            <p className="homecategory-subtitle">
-              Explore targeted Ayurvedic solutions for every health need
-            </p>
-          </div> */}
           <div className="grid">
             {loading
-              ? [...Array(6)].map((_, i) => <Skeleton key={i} />)
-              : paginated.map((p) => (
-                  <div className="card" key={p.id}>
-                    <span className="tag">{p.forms?.[0]}</span>
+              ? [...Array(8)].map((_, i) => <Skeleton key={i} />)
+              : paginated.map((p) => {
+                  const justAdded  = addedMap[p.id];
+                  const alreadyIn  = isInCart(p.id);
+                  const hasMrp     = p.price?.mrp && p.price?.offer;
+                  const pct        = hasMrp ? discountPct(p.price.mrp, p.price.offer) : 0;
 
-                    <div className="product-card-img">
-                      <img src={p.image} alt={p.name} />
+                  return (
+                    <div className="card" key={p.id}>
+
+                      {/* Form tag */}
+                      <span className="tag">{p.forms?.[0]}</span>
+
+                      {/* Discount badge */}
+                      {hasMrp && pct > 0 && (
+                        <span className="discount-badge">{pct}% OFF</span>
+                      )}
+
+                      {/* Image */}
+                      <div
+                        className="product-card-img"
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <img src={p.image} alt={p.name} loading="lazy" />
+                      </div>
+
+                      {/* Name */}
+                      <h4
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                        className="card-name"
+                      >
+                        {p.name}
+                      </h4>
+
+                      {/* Price row */}
+                      {hasMrp && (
+                        <div className="price-row">
+                          <span className="offer-price">₹{p.price.offer}</span>
+                          <span className="mrp-price">₹{p.price.mrp}</span>
+                        </div>
+                      )}
+
+                      {/* Action row */}
+                      <div className="card-actions">
+                        <button
+                          className="view-btn"
+                          onClick={() => navigate(`/product/${p.slug}`)}
+                        >
+                          View Product
+                        </button>
+
+                        <button
+                          className={`cart-icon-btn ${justAdded ? "added" : ""} ${alreadyIn ? "in-cart" : ""}`}
+                          onClick={(e) => handleAddToCart(p, e)}
+                          title={alreadyIn ? "In cart" : "Add to cart"}
+                        >
+                          {justAdded
+                            ? <Check size={16} strokeWidth={2.5} />
+                            : <ShoppingCart size={16} strokeWidth={2} />
+                          }
+                        </button>
+                      </div>
+
                     </div>
-
-                    <h4>{p.name}</h4>
-
-                    {/* <p className="price">
-                      ₹{p.price.offer}
-                      <span className="mrp"> ₹{p.price.mrp}</span>
-                    </p> */}
-
-                    <button
-                      className="filled"
-                      onClick={() => navigate(`/product/${p.slug}`)}
-                    >
-                      View Product
-                    </button>
-                  </div>
-                ))}
+                  );
+                })
+            }
           </div>
 
           {/* PAGINATION */}
@@ -252,13 +292,12 @@ const Products = () => {
 
 export default Products;
 
-// SKELETON
-const Skeleton = () => {
-  return (
-    <div className="card skeleton">
-      <div className="img"></div>
-      <div className="text"></div>
-      <div className="text small"></div>
-    </div>
-  );
-};
+// ── SKELETON ──────────────────────────────────────────────────────────────────
+const Skeleton = () => (
+  <div className="card skeleton">
+    <div className="img" />
+    <div className="text" />
+    <div className="text small" />
+    <div className="text small" style={{ width: "60%", margin: "8px auto 0" }} />
+  </div>
+);

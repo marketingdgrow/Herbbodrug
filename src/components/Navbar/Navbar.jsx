@@ -4,6 +4,7 @@ import {
   Menu,
   X,
   ShoppingBag,
+  ShoppingCart,
   LogIn,
   LogOut,
   UserCircle2,
@@ -15,15 +16,16 @@ import {
   Tag,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 const Navbar = () => {
   const sidebarRef = useRef(null);
   const overlayRef = useRef(null);
   const productRef = useRef(null);
 
-  const [productOpen, setProductOpen]   = useState(false);
+  const [productOpen,  setProductOpen]  = useState(false);
   const [ayurvedaOpen, setAyurvedaOpen] = useState(false);
-  const [scrolled, setScrolled]         = useState(false);
+  const [scrolled,     setScrolled]     = useState(false);
 
   const [sidebarProductOpen,  setSidebarProductOpen]  = useState(false);
   const [sidebarClassicalOpen,setSidebarClassicalOpen] = useState(false);
@@ -35,6 +37,8 @@ const Navbar = () => {
   // e.g. const isLoggedIn = !!localStorage.getItem("token");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // ────────────────────────────────────────────────────────────────────────────
+
+  const { cartCount } = useCart();
 
   // Scroll shadow effect
   useEffect(() => {
@@ -99,13 +103,16 @@ const Navbar = () => {
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         {/* ── LOGO ── */}
         <div className="nav-left">
-          <img src="/imgs/Logo.png" alt="logo" className="logo" />
+          <img src="/imgs/Logo Jpg-01.jpg" alt="logo" className="logo" />
         </div>
 
         {/* ── DESKTOP MENU ── */}
         <ul className="nav-menu">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/whitelabel">Whitelabel</Link></li>
+          <li><Link to="/directsale">Directsale</Link></li>
+          <li><Link to="/franchise">Franchise</Link></li>
 
           {/* PRODUCT — Mega Menu */}
           <li ref={productRef} className="nav-product-item">
@@ -166,7 +173,6 @@ const Navbar = () => {
                   {/* Pattern Product */}
                   <div className="mega-col single-link">
                     <Link to="/pattern" onClick={closeMega}>
-                    
                       <div className="mega-col-header">
                         <span className="mega-col-icon"><Tag size={16} /></span>
                         <p className="mega-col-heading">Pattern Product</p>
@@ -217,6 +223,14 @@ const Navbar = () => {
             <span>Order Now</span>
           </Link>
 
+          {/* Cart icon with badge */}
+          <Link to="/cart" className="nav-cart-btn" title="My Cart">
+            <ShoppingCart size={20} />
+            {cartCount > 0 && (
+              <span className="nav-cart-badge">{cartCount > 99 ? "99+" : cartCount}</span>
+            )}
+          </Link>
+
           {/* ── AUTH ──
               Logged IN  → [UserCircle2] + [LogOut] icons side by side
               Logged OUT → [LogIn] icon only
@@ -260,7 +274,10 @@ const Navbar = () => {
 
         <ul>
           <li><Link to="/" onClick={closeSidebar}>Home</Link></li>
-          <li><Link to="/about" onClick={closeSidebar}>About</Link></li>
+          <li><Link to="/about"         onClick={closeSidebar}>About</Link></li>
+          <li><Link to="/white-labeling" onClick={closeSidebar}>White Labeling</Link></li>
+          <li><Link to="/direct-sale"    onClick={closeSidebar}>Direct Sale</Link></li>
+          <li><Link to="/franchise"      onClick={closeSidebar}>Franchise</Link></li>
 
           {/* Product accordion */}
           <li className="sidebar-product-li">

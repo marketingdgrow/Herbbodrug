@@ -4,8 +4,8 @@ import "./SideNav.css";
 import { Tag, Users, ShoppingCart, Repeat } from "lucide-react";
 
 const navItems = [
-  { path: "/Whitelabel", icon: Tag,         label: "Whitelabel" },
-  { path: "/Directsale",      icon: Users,        label: "Directsale"      },
+  { path: "/whitelabel", icon: Tag,         label: "Whitelabel" },
+  { path: "/directsale",      icon: Users,        label: "Directsale"      },
   { path: "/products",    icon: ShoppingCart, label: "Online Shop"    },
   { path: "/Franchise",        icon: Repeat,       label: "Franchise"        },
 ];

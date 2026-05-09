@@ -74,7 +74,12 @@ export default function Labeling() {
           <div className="wl-about-grid">
             <div className="wl-about-visual reveal">
               <div className="wl-about-img-box">
-                <div className="wl-img-dummy" />
+                <img
+  src="/imgs/hero.png"
+  alt="Herbbodrug Pattern Products"
+  className="pp-about-img"
+  onError={e => { e.target.style.display="none"; }}
+/>
                 <div className="wl-about-tag">
                   <ShieldCheck size={18} /> GMP Certified
                 </div>

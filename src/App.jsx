@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 import SideNav from "./components/SideNav/SideNav";
+import CartPage from './pages/CartPage';
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -17,7 +18,7 @@ import Cosmetic from "./pages/Cosmetic";
 import General from "./pages/General";
 import Pattern from "./pages/Pattern";
 
-// import ProductDetail from "./pages/ProductDetail";
+
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/pattern" element={<Pattern />} />
         <Route path="/cosmetic" element={<Cosmetic />} />
         <Route path="/general" element={<General />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
