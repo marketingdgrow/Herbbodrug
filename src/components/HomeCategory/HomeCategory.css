@@ -1,18 +1,20 @@
 .homecategory-section {
   padding: 60px 20px;
-  background: #f9f9f9;
+  background: #e8f5eb;
   text-align: center;
   border-radius: 20px;
+  
 }
 
 .homecategory-title {
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 10px;
+  color: #0f1f0a;
 }
 
 .homecategory-subtitle {
-  color: #666;
+  color: #537a5a;
   margin-bottom: 40px;
 }
 
@@ -38,12 +40,21 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(45, 122, 58, 0.18);
+  border: 3px solid rgba(45, 122, 58, 0.15);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.homecategory-item:hover img {
+  border-color: #2d7a3a;
+  box-shadow: 0 8px 24px rgba(45, 122, 58, 0.28);
 }
 
 .homecategory-item h4 {
   margin-top: 10px;
   font-size: 14px;
+  color: #1a4a22;
+  font-weight: 600;
 }
 
 .homecategory-item:hover {
@@ -54,13 +65,21 @@
   position: absolute;
   top: 40%;
   transform: translateY(-50%);
-  background: #000;
+  background: #2d7a3a;
   color: #fff;
   border: none;
   padding: 10px 14px;
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(45, 122, 58, 0.35);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.homecategory-btn:hover {
+  background: #1a4a22;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 22px rgba(45, 122, 58, 0.45);
 }
 
 .homecategory-btn.prev {
@@ -70,6 +89,7 @@
 .homecategory-btn.next {
   right: 0;
 }
+
 @media (max-width: 768px) {
   .homecategory-item {
     min-width: 120px;

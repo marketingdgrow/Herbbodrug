@@ -1,5 +1,6 @@
 .homeproduct-section {
   padding: 60px 20px;
+  background: #fff;
 }
 
 .homeproduct-container {
@@ -13,16 +14,24 @@
   align-items: center;
   margin-bottom: 25px;
 }
+
 .hero-product-title {
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #0f1f0a;
 }
 
 .homeproduct-header a {
-  color: #666;
+  color: #2d7a3a;
   margin-bottom: 20px;
   text-decoration: none;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.homeproduct-header a:hover {
+  color: #1a4a22;
 }
 
 .homeproduct-tabs {
@@ -35,14 +44,23 @@
 .homeproduct-tabs button {
   padding: 8px 16px;
   border-radius: 20px;
-  border: none;
-  background: #e5e7eb;
+  border: 1px solid rgba(45, 122, 58, 0.2);
+  background: #e8f5eb;
+  color: #1a4a22;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.homeproduct-tabs button:hover {
+  background: rgba(45, 122, 58, 0.15);
+  border-color: #2d7a3a;
 }
 
 .homeproduct-tabs .active {
-  background: #1e7d32;
-  color: white;
+  background: #2d7a3a;
+  color: #fff;
+  border-color: #2d7a3a;
 }
 
 .homeproduct-grid {
@@ -52,53 +70,75 @@
 }
 
 .homeproduct-card {
-  background: rgba(228, 228, 228, 0.8);
+  background: #f7fdf8;
   border-radius: 15px;
   padding: 15px;
   position: relative;
-  transition: 0.3s;
-  border: 1px solid rgb(48, 124, 16);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(45, 122, 58, 0.2);
 }
 
 .homeproduct-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(45, 122, 58, 0.14);
+  border-color: #2d7a3a;
 }
+
 .home-product-image {
   width: 100%;
   height: 150px;
   border-radius: 10px;
   overflow: hidden;
 }
+
 .homeproduct-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.homeproduct-card:hover img {
+  transform: scale(1.05);
 }
 
 .homeproduct-card h4 {
   margin: 10px 0;
   font-size: 16px;
+  color: #0f1f0a;
+  font-weight: 600;
 }
 
 .price {
   font-weight: bold;
   margin-bottom: 10px;
+  color: #2d7a3a;
 }
 
 .price .old {
   text-decoration: line-through;
-  color: gray;
+  color: #537a5a;
   margin-right: 5px;
+  font-weight: 400;
 }
 
 .homeproduct-card button {
   width: 100%;
   padding: 10px;
   border: none;
-  background: #079c07;
-  color: white;
+  background: #2d7a3a;
+  color: #fff;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.homeproduct-card button:hover {
+  background: #1a4a22;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(45, 122, 58, 0.3);
 }
 
 @media (max-width: 768px) {
