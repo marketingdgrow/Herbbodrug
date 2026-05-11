@@ -103,7 +103,7 @@ const Navbar = () => {
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         {/* ── LOGO ── */}
         <div className="nav-left">
-          <img src="/imgs/Logo Jpg-01.jpg" alt="logo" className="logo" />
+          <img src="/imgs/Logo.png" alt="logo" className="logo" />
         </div>
 
         {/* ── DESKTOP MENU ── */}
@@ -138,7 +138,7 @@ const Navbar = () => {
 
                       {/* Siddha — direct link */}
                       <li>
-                        <Link to="/products/classical/siddha" onClick={closeMega}>
+                        <Link to="/siddha" onClick={closeMega}>
                           <span className="sub-dot" />
                           <span>Siddha</span>
                         </Link>

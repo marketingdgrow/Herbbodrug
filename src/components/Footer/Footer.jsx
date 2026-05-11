@@ -46,7 +46,7 @@ const Footer = () => {
         {/* BRAND + SOCIAL ROW */}
         <div className="footersection-middle">
           <div className="footersection-brand">
-            <img src="/imgs/Logo_Jpg-01.png" alt="Herbbodrug Logo" />
+            <img src="/imgs/Logo.png" alt="Herbbodrug Logo" />
           </div>
 
           <div className="footersection-social">

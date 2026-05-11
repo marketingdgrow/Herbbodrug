@@ -1,0 +1,299 @@
+/* ══════════════════════════════════════════════════════════
+   PRODUCT CATEGORIES SECTION — ProductCategories.css
+   ══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+.pc-section {
+    padding: 20px 20px 60px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.pc-container {
+    max-width: 1160px;
+    margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.pc-header {
+    text-align: center;
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.pc-header.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pc-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2d7a3a;
+    background: #e8f5eb;
+    padding: 5px 16px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(45, 122, 58, 0.15);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.pc-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    color: #0f1f0a;
+    line-height: 1.15;
+    margin: 0 0 14px;
+}
+
+.pc-header h2 em {
+    color: #2d7a3a;
+    font-style: italic;
+}
+
+.pc-header p {
+    font-size: 15.5px;
+    color: #6b7c6a;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* ── GRID ── */
+.pc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(45, 122, 58, 0.1);
+    border: 1px solid rgba(45, 122, 58, 0.1);
+}
+
+/* ── CARD ── */
+.pc-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-right: 1px solid rgba(45, 122, 58, 0.08);
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pc-card:last-child {
+    border-right: none;
+}
+
+.pc-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pc-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--card-color, #2d7a3a);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+}
+
+.pc-card:hover::after {
+    transform: scaleX(1);
+}
+
+.pc-card:hover {
+    box-shadow: 0 0 0 0 transparent;
+    z-index: 1;
+}
+
+/* Card strip (colored top) */
+.pc-card-strip {
+    padding: 24px 22px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+}
+
+.pc-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.1em;
+}
+
+.pc-card-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.pc-card:hover .pc-card-icon {
+    transform: rotate(8deg) scale(1.1);
+}
+
+/* Card body */
+.pc-card-body {
+    padding: 20px 22px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pc-card-label {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 50px;
+    width: fit-content;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.pc-card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f1f0a;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.pc-card-body p {
+    font-size: 13px;
+    color: #6b7c6a;
+    line-height: 1.65;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Sub links */
+.pc-sub-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.pc-sub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 50px;
+    border: 1.5px solid;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.22s ease;
+}
+
+.pc-sub-link:hover {
+    opacity: 0.8;
+    transform: translateX(3px);
+}
+
+/* Card footer */
+.pc-card-footer {
+    padding: 16px 22px 22px;
+}
+
+.pc-main-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: filter 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.pc-main-link:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.pc-main-link svg {
+    transition: transform 0.2s ease;
+}
+
+.pc-main-link:hover svg {
+    transform: translateX(3px);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+    .pc-grid {
+        grid-template-columns: repeat(2, 1fr);
+        border-radius: 20px;
+    }
+
+    .pc-card {
+        border-right: 1px solid rgba(45, 122, 58, 0.08);
+        border-bottom: 1px solid rgba(45, 122, 58, 0.08);
+    }
+
+    .pc-card:nth-child(2n) {
+        border-right: none;
+    }
+
+    .pc-card:nth-child(3),
+    .pc-card:nth-child(4) {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .pc-section {
+        padding: 64px 16px;
+    }
+
+    .pc-grid {
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+    }
+
+    .pc-card {
+        border-right: none !important;
+        border-bottom: 1px solid rgba(45, 122, 58, 0.08);
+    }
+
+    .pc-card:last-child {
+        border-bottom: none;
+    }
+
+    .pc-header h2 {
+        font-size: 30px;
+    }
+}

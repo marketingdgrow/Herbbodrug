@@ -17,6 +17,7 @@ import Franchise from "./pages/Franchise";
 import Cosmetic from "./pages/Cosmetic";
 import General from "./pages/General";
 import Pattern from "./pages/Pattern";
+import Siddha from "./pages/Siddha";
 
 
 
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/cosmetic" element={<Cosmetic />} />
         <Route path="/general" element={<General />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/siddha" element={<Siddha />} />
       </Routes>
       <Footer />
     </BrowserRouter>

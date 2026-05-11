@@ -75,11 +75,11 @@ export default function Labeling() {
             <div className="wl-about-visual reveal">
               <div className="wl-about-img-box">
                 <img
-  src="/imgs/hero.png"
-  alt="Herbbodrug Pattern Products"
-  className="pp-about-img"
-  onError={e => { e.target.style.display="none"; }}
-/>
+                  src="/imgs/hero.png"
+                  alt="Herbbodrug Pattern Products"
+                  className="pp-about-img"
+                  onError={e => { e.target.style.display = "none"; }}
+                />
                 <div className="wl-about-tag">
                   <ShieldCheck size={18} /> GMP Certified
                 </div>
@@ -103,7 +103,7 @@ export default function Labeling() {
                 under your brand name.
               </p>
               <ul className="wl-check-list">
-                {["No minimum factory setup required","Flexible MOQ options","Brand-ready packaging","Regulatory documentation support"].map((t, i) => (
+                {["No minimum factory setup required", "Flexible MOQ options", "Brand-ready packaging", "Regulatory documentation support"].map((t, i) => (
                   <li key={i}><CheckCircle2 size={16} /> {t}</li>
                 ))}
               </ul>
