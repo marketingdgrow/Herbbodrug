@@ -18,6 +18,7 @@ import Cosmetic from "./pages/Cosmetic";
 import General from "./pages/General";
 import Pattern from "./pages/Pattern";
 import Siddha from "./pages/Siddha";
+import Ayurveda from "./pages/Ayurveda";
 
 
 
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/general" element={<General />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/siddha" element={<Siddha />} />
+        <Route path="/ayurveda" element={<Ayurveda />} />
       </Routes>
       <Footer />
     </BrowserRouter>

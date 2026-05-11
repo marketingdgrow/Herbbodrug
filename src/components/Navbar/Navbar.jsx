@@ -90,12 +90,12 @@ const Navbar = () => {
   // ────────────────────────────────────────────────────────────────────────────
 
   const ayurvedaTypes = [
-    { label: "Kashayam", path: "/products/classical/ayurveda/kashayam" },
-    { label: "Choornam", path: "/products/classical/ayurveda/choornam" },
-    { label: "Lehyam",   path: "/products/classical/ayurveda/lehyam"   },
-    { label: "Gulika",   path: "/products/classical/ayurveda/gulika"   },
-    { label: "Ghritham", path: "/products/classical/ayurveda/ghritham" },
-    { label: "Asavam",   path: "/products/classical/ayurveda/asavam"   },
+    { label: "Kashayam", path: "/ayurveda" },
+    { label: "Choornam", path: "/ayurveda" },
+    { label: "Lehyam",   path: "/ayurveda" },
+    { label: "Gulika",   path: "/ayurveda" },
+    { label: "Ghritham", path: "/ayurveda" },
+    { label: "Asavam",   path: "/ayurveda" },
   ];
 
   return (
@@ -318,6 +318,7 @@ const Navbar = () => {
                             {ayurvedaTypes.map((type) => (
                               <li key={type.path}>
                                 <Link to={type.path} onClick={closeSidebar}>{type.label}</Link>
+                                 <Link to="/products/classical/Ayrvedha" onClick={closeSidebar}>Ayrvedha</Link>
                               </li>
                             ))}
                           </ul>
