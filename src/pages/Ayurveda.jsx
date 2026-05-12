@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import "./Ayurveda.css";
 import {
@@ -69,6 +69,13 @@ export default function Ayurveda() {
   const filtered = activeType === "All"
     ? products
     : products.filter(p => p.type === activeType);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const els = document.querySelectorAll("#ay-products .reveal");
+      els.forEach(el => el.classList.add("revealed"));
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [activeType]);
 
   const addToCart = (product, e) => {
     if (e) e.stopPropagation();
@@ -91,12 +98,12 @@ export default function Ayurveda() {
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
 
   const typeInfo = {
-    Kashayam:  { desc: "Herbal decoctions prepared by boiling herbs in water. Highly bioavailable and fast-acting.", emoji: "🫙" },
+    Kashayam: { desc: "Herbal decoctions prepared by boiling herbs in water. Highly bioavailable and fast-acting.", emoji: "🫙" },
     Chooranam: { desc: "Fine herbal powders from dried herbs and minerals. Taken with honey, ghee or warm water.", emoji: "🌿" },
-    Lehyam:    { desc: "Semi-solid herbal preparations with jaggery or honey base. Rasayanas for rejuvenation.", emoji: "🍯" },
-    Gulika:    { desc: "Classical Ayurvedic tablets made from herbs and minerals. Precise dosage for specific conditions.", emoji: "💊" },
-    Ghritham:  { desc: "Medicated ghee preparations. The ghee base carries herbal actives deep into tissues.", emoji: "✨" },
-    Asuvam:    { desc: "Fermented herbal liquids (Arishta & Asava). Self-generated alcohol aids bioavailability.", emoji: "🍵" },
+    Lehyam: { desc: "Semi-solid herbal preparations with jaggery or honey base. Rasayanas for rejuvenation.", emoji: "🍯" },
+    Gulika: { desc: "Classical Ayurvedic tablets made from herbs and minerals. Precise dosage for specific conditions.", emoji: "💊" },
+    Ghritham: { desc: "Medicated ghee preparations. The ghee base carries herbal actives deep into tissues.", emoji: "✨" },
+    Asuvam: { desc: "Fermented herbal liquids (Arishta & Asava). Self-generated alcohol aids bioavailability.", emoji: "🍵" },
   };
 
   return (
@@ -188,7 +195,6 @@ export default function Ayurveda() {
         </div>
       )}
 
-      {/* ── CART FAB ── */}
       <div className="ay-sticky-cart">
         <button className="ay-cart-fab" onClick={() => setCartOpen(true)}>
           <ShoppingCart size={20} />
@@ -196,7 +202,7 @@ export default function Ayurveda() {
         </button>
       </div>
 
-      {/* ── HERO ── */}
+
       <section className="ay-hero">
         <div className="ay-hero-glow" />
         <div className="ay-hero-content">
@@ -215,9 +221,9 @@ export default function Ayurveda() {
         <div className="ay-stats-bar">
           {[
             { num: "5000+", label: "Years of History" },
-            { num: "6",     label: "Classical Forms" },
-            { num: "GMP",   label: "Certified" },
-            { num: "22+",   label: "Products" },
+            { num: "6", label: "Classical Forms" },
+            { num: "GMP", label: "Certified" },
+            { num: "22+", label: "Products" },
           ].map((s, i) => (
             <div className="ay-stat" key={i}>
               <span className="ay-stat-num">{s.num}</span>
@@ -227,7 +233,6 @@ export default function Ayurveda() {
         </div>
       </section>
 
-      {/* ── 6 TYPES INTRO ── */}
       <section className="ay-types-intro" ref={s1}>
         <div className="ay-container">
           <div className="ay-section-head reveal">
@@ -240,7 +245,10 @@ export default function Ayurveda() {
               <button
                 key={type}
                 className={`ay-type-card reveal ${activeType === type ? "active" : ""}`}
-                onClick={() => { setActiveType(type); document.getElementById("ay-products")?.scrollIntoView({ behavior: "smooth" }); }}
+                onClick={() => {
+                  setActiveType(type);
+                  document.getElementById("ay-products")?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 <span className="ay-type-emoji">{info.emoji}</span>
                 <h4>{type}</h4>
@@ -254,7 +262,6 @@ export default function Ayurveda() {
         </div>
       </section>
 
-      {/* ── PRODUCTS ── */}
       <section className="ay-products" id="ay-products" ref={s2}>
         <div className="ay-container">
           <div className="ay-section-head reveal">
@@ -265,7 +272,6 @@ export default function Ayurveda() {
             <p>{filtered.length} products found</p>
           </div>
 
-          {/* Filter bar */}
           <div className="ay-filter-bar reveal">
             <Filter size={15} />
             {types.map(t => (
@@ -277,7 +283,6 @@ export default function Ayurveda() {
             ))}
           </div>
 
-          {/* Active type info */}
           {activeType !== "All" && typeInfo[activeType] && (
             <div className="ay-type-info-bar reveal">
               <span className="ay-type-info-emoji">{typeInfo[activeType].emoji}</span>
@@ -288,8 +293,7 @@ export default function Ayurveda() {
             </div>
           )}
 
-          {/* Product grid */}
-          <div className="ay-grid">
+          <div className="ay-grid" key={activeType}>
             {filtered.map((p, i) => (
               <div
                 className="ay-card reveal"
@@ -299,12 +303,22 @@ export default function Ayurveda() {
               >
                 <div className="ay-card-img">
                   <img src={p.image} alt={p.name} className="ay-card-real-img"
-                    onError={e => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }} />
+                    onError={e => {
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
+                    }} />
                   <div className="ay-card-img-fallback"><span>{p.type[0]}</span></div>
-                  {p.tag && <span className={`ay-card-tag ${p.tag.toLowerCase().replace(" ", "")}`}>{p.tag}</span>}
+                  {p.tag && (
+                    <span className={`ay-card-tag ${p.tag.toLowerCase().replace(" ", "")}`}>
+                      {p.tag}
+                    </span>
+                  )}
                   <button
                     className={`ay-wish-btn ${wishlist[p.id] ? "active" : ""}`}
-                    onClick={e => { e.stopPropagation(); setWishlist(w => ({ ...w, [p.id]: !w[p.id] })); }}
+                    onClick={e => {
+                      e.stopPropagation();
+                      setWishlist(w => ({ ...w, [p.id]: !w[p.id] }));
+                    }}
                   >{wishlist[p.id] ? "❤️" : "🤍"}</button>
                   <span className="ay-type-badge">{p.type}</span>
                 </div>
@@ -344,7 +358,7 @@ export default function Ayurveda() {
           <p>GMP-certified classical formulations rooted in 5000 years of Ayurvedic tradition.</p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
             <a href="/contact" className="ay-btn-primary">Consult Our Experts <ArrowRight size={16} /></a>
-            <a href="/franchise"  className="ay-btn-ghost">Apply for Franchise</a>
+            <a href="/franchise" className="ay-btn-ghost">Apply for Franchise</a>
           </div>
         </div>
       </section>
